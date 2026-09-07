@@ -1,0 +1,106 @@
+/* ssml-viewer — read-only SSML renderer (visual style ported from SSML-Editor-Vanilla) */
+.ssml-viewer {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  line-height: 1.9;
+  color: #1f2329;
+  word-break: break-all;
+}
+
+.sv-placeholder {
+  color: #9ca3af;
+  font-size: 28rpx;
+  text-align: center;
+  padding: 40rpx 0;
+}
+
+.sv-block {
+  margin-bottom: 20rpx;
+  word-break: break-all;
+}
+
+/* plain text */
+.sv-text {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* range brackets — read-only (opacity .55) */
+.sv-bracket {
+  opacity: 0.55;
+  font-weight: 400;
+}
+.sv-bracket--prosody {
+  color: #f59e0b;
+}
+.sv-bracket--emphasis {
+  color: #ef4444;
+}
+.sv-bracket--sayAs {
+  color: #10b981;
+}
+
+/* single char with pinyin ruby */
+.sv-char {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  line-height: 1.9;
+}
+.sv-ch-text {
+  font-size: inherit;
+  line-height: inherit;
+}
+/* hidden placeholder: takes up width (pinyin length) but almost no height,
+   so neighbouring chars are pushed apart and long pinyin never overlaps */
+.sv-py-holder {
+  display: block;
+  font-size: 20rpx;
+  line-height: 0.1;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 0 5rpx;
+  visibility: hidden;
+  pointer-events: none;
+}
+/* visible pinyin, centred over the char box widened by the placeholder */
+.sv-py-line {
+  position: absolute;
+  left: 50%;
+  top: -22rpx;
+  transform: translateX(-50%);
+  font-size: 20rpx;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #4f7cff;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* break / pause mark — double vertical bar */
+.sv-break {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  height: 1.15em;
+  color: #94a3b8;
+  margin: 0 6rpx;
+}
+.sv-break-line {
+  display: inline-block;
+  width: 3rpx;
+  height: 100%;
+  background: currentColor;
+}
+.sv-break-dash {
+  margin-left: 4rpx;
+  background: repeating-linear-gradient(to bottom, currentColor 0 8rpx, transparent 8rpx 16rpx);
+}
+
+/* hint group — dotted underline */
+.sv-hint {
+  display: inline;
+  border-bottom: 3rpx dotted #f5a623;
+}

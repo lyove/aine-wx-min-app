@@ -1,0 +1,146 @@
+/* pages/articleList/index.wxss */
+page::-webkit-scrollbar {
+  display: none;
+}
+
+.list {
+  height: 100%;
+  min-height: 100vh;
+  padding: 20rpx 24rpx;
+  background: #fff;
+}
+
+.list_loading {
+  height: 90vh;
+  background-color: #fff;
+  margin-top: 20rpx;
+  border-radius: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+
+.list_loading.skeleton {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+}
+.list_loading.skeleton .skeleton-rect {
+  height: 30vh;
+  margin-bottom: 36rpx;
+  background: #f0f0f0;
+  border-radius: 15rpx;
+}
+
+.list_label {
+  position: relative;
+  margin-bottom: 36rpx;
+}
+
+.list_label_title {
+  color: #fff;
+  line-height: 58rpx;
+  position: absolute;
+  top: 0;
+  left: 20rpx;
+  z-index: 1;
+}
+
+.list_label_bg {
+  height: 58rpx;
+  background: linear-gradient(270deg, rgba(249, 228, 135, 0) 0%, rgba(241, 197, 79, 1) 100%);
+  border-radius: 11rpx;
+}
+
+.list_label_more {
+  position: absolute;
+  right: 0;
+  top: -14rpx;
+  color: #888888;
+  font-size: 28rpx;
+  line-height: 48rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.list_article_box {
+  margin-bottom: 38rpx;
+  padding-bottom: 38rpx;
+  border-bottom: 1px dotted #c5c5c5;
+}
+
+.list_article_figure {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 0;
+  padding: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+}
+
+.list_article_cover {
+  width: 100%;
+  height: 380rpx;
+  border-radius: 15rpx;
+}
+
+.list_article {
+  margin-bottom: 36rpx;
+}
+
+.list_article_title {
+  width: 100%;
+  font-size: 110%;
+  font-weight: 500;
+  color: rgba(38, 38, 38, 1);
+  line-height: 50rpx;
+  margin-top: 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list_article_desc {
+  color: #888888;
+  margin-top: 16rpx;
+  font-size: 95%;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.list_article_category {
+  position: absolute;
+  bottom: 24rpx;
+  left: 24rpx;
+  z-index: 1;
+  line-height: 40rpx;
+  background: rgba(38, 38, 38, 1);
+  border-radius: 8rpx;
+  opacity: 0.9;
+  padding: 2rpx 10rpx;
+  text-align: center;
+}
+
+.list_article_category text {
+  font-size: 80%;
+  color: #fff;
+}
+
+.list_article_null {
+  position: relative;
+  height: 380rpx
+}
+
+.last_text {
+  width: 100%;
+  text-align: center;
+  color: #AAA;
+  font-size: 24rpx;
+  margin: 60rpx 0 30rpx;
+}

@@ -1,0 +1,10 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "topbar": "/components/topbar/topbar",
+    "loading": "/components/loading/loading",
+    "tabs": "/components/tabs/tabs"
+  }
+}

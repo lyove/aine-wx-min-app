@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>mine-suggest</title>
+    <desc>Created with Sketch.</desc>
+    <g id="mine-suggest" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="提问" stroke="#A8A8A8">
+            <g id="cash-bulb" transform="translate(5.500000, 2.500000)">
+                <path d="M7,24.46875 L14,24.46875" id="路径" stroke-width="2"></path>
+                <path d="M10.5,24.46875 L10.5,26.5" id="路径" stroke-width="2"></path>
+                <path d="M20.125,10.125 C20.1239484,5.44344839 16.5073199,1.49553808 11.6896015,0.916922013 C6.87188297,0.338305943 2.36147985,3.31014613 1.16956921,7.84842097 C-0.0223414268,12.3866958 2.47742213,17.0704924 7,18.772875 L7,21.09375 L14,21.09375 L14,18.772875 C17.6938339,17.3817676 20.1252022,13.9489236 20.125,10.125 Z" id="路径" stroke-width="2"></path>
+            </g>
+        </g>
+    </g>
+</svg>

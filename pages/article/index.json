@@ -1,0 +1,8 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "mp-html": "/components/mp-html/index",
+    "ssml-viewer": "/components/ssml-viewer/index"
+  }
+}

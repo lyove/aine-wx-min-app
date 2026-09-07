@@ -1,0 +1,40 @@
+<!--pages/page/index.wxml-->
+<topbar bgColor="bg-gradual-blue" isBack="{{true}}">
+  <!-- <view slot="backText">Back</view> -->
+  <view slot="content">页面详情</view>
+</topbar>
+<view class="header-banner">
+  <image class='header-image' src='{{detail.meta.thumbnail?detail.meta.thumbnail:"/images/detail_default.png"}}'
+    mode="widthFix"></image>
+</view>
+<view class="page-detail">
+  <view wx:if="{{detail}}" class="page-info">
+    <text class="title">{{detail.title.rendered}}</text>
+    <!--
+    <view class="meta">
+      <text class="cuIcon-profile"></text>
+      <text class="author">{{detail.author.name}}</text>
+      <text class="cuIcon-time"></text>
+      <text class="time">{{detail.date}}</text>
+    </view>
+    -->
+  </view>
+  <view wx:else class="page-info skeleton">
+    <view class="title"></view>
+    <view class="meta">
+      <image class="avator" src="{{detail.author.avatar}}"></image>
+      <text class="category"></text>
+      <i></i>
+      <text class="time"></text>
+    </view>
+  </view>
+  <view wx:if="{{detail.content && detail.content.rendered}}" id="entry-content" class="entry-content clearfix">
+    <mp-html content="{{detail.content.rendered}}" />
+  </view>
+  <view wx:else id="entry-content" class="entry-content skeleton clearfix">
+    <view class="skeleton-content">
+      <view class="c1"></view>
+      <view class="c2"></view>
+    </view>
+  </view>
+</view>

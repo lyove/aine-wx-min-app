@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "ssml-viewer": "/components/ssml-viewer/index"
+  },
+  "navigationBarTitleText": "SSML Read-only Preview"
+}

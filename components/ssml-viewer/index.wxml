@@ -1,0 +1,34 @@
+<!--
+  ssml-viewer read-only renderer
+  Segments: b(bracket) | bk(break) | h(hint group) | c(char with pinyin) | t(plain text)
+-->
+<template name="sv-segs">
+  <block wx:for="{{segs}}" wx:key="key" wx:for-item="seg">
+    <!-- range bracket -->
+    <text wx:if="{{seg.k === 'b'}}" class="sv-bracket sv-bracket--{{seg.c}}">{{seg.ch}}</text>
+    <!-- break / pause mark -->
+    <text wx:elif="{{seg.k === 'bk'}}" class="sv-break">
+      <text class="sv-break-line sv-break-solid"></text>
+      <text class="sv-break-line sv-break-dash"></text>
+    </text>
+    <!-- hint group (dotted underline, tap to show hint text) -->
+    <view wx:elif="{{seg.k === 'h'}}" class="sv-hint" data-hint="{{seg.hint}}" bindtap="onHintTap">
+      <template is="sv-segs" data="{{segs: seg.segs}}"/>
+    </view>
+    <!-- single char with pinyin ruby -->
+    <view wx:elif="{{seg.k === 'c'}}" class="sv-char">
+      <view class="sv-py-holder">{{seg.py}}</view>
+      <view class="sv-py-line">{{seg.py}}</view>
+      <text class="sv-ch-text">{{seg.ch}}</text>
+    </view>
+    <!-- plain text run -->
+    <text wx:else class="sv-text">{{seg.s}}</text>
+  </block>
+</template>
+
+<view class="ssml-viewer">
+  <view wx:if="{{blocks.length === 0}}" class="sv-placeholder">{{placeholder}}</view>
+  <view class="sv-block" wx:for="{{blocks}}" wx:key="id" wx:for-item="blk">
+    <template is="sv-segs" data="{{segs: blk.segs}}"/>
+  </view>
+</view>

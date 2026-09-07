@@ -1,0 +1,39 @@
+<!--pages/category/index.wxml-->
+<topbar bgColor="bg-gradual-blue">
+  <view slot="avatar" class="category-headAvatar">
+    <image wx:if="{{user == null || user == ''}}" src="/images/avatar-default.png" mode="widthFix"></image>
+    <image wx:else src="{{user.avatarUrl}}" mode="widthFix"></image>
+    <button class="login-button" bindtap="getUserProfile"></button>
+  </view>
+  <view slot="content">栏目</view>
+</topbar>
+<view class="section section-features">
+  <view wx:if="{{loading === true && category.length === 0}}" class="category_loading skeleton">
+    <view class="skeleton-rect"></view>
+    <view class="skeleton-rect"></view>
+    <view class="skeleton-rect"></view>
+  </view>
+  <view wx:else class="section-content is-flex center-xs">
+    <view class="feature-list is-flex direction-vert middle-xs">
+      <block wx:for="{{category}}" wx:key="id">
+        <view bindtap='bindCateByID' id="{{item.id}}" class="feature-card card-type-life">
+          <view class="card-cover"
+            style='background-image:url({{item.cover}});'></view>
+          <view data-jarallax-element="-80" class="card-main is-flex direction-vert between-xs parallax">
+            <view class="card-top">
+              <view class="card-title">{{item.name}}</view>
+              <view class="card-content">
+                <text>{{item.description}}</text>
+              </view>
+            </view>
+            <view class="card-actions is-flex end-xs">
+              <view class="action-item is-flex middle-xs">
+                <text>更多</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

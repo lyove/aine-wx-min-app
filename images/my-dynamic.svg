@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>mine-dynamic </title>
+    <desc>Created with Sketch.</desc>
+    <g id="mine-dynamic-" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="动态">
+            <rect id="Rectangle-4" stroke="#A8A8A8" stroke-width="2" x="5" y="5" width="22" height="22" rx="4"></rect>
+            <circle id="Oval-2" stroke="#A8A8A8" stroke-width="2" cx="11" cy="12" r="2"></circle>
+            <circle id="Oval-2-Copy" stroke="#A8A8A8" stroke-width="2" cx="11" cy="20" r="2"></circle>
+            <rect id="Rectangle" fill="#A8A8A8" fill-rule="evenodd" x="16" y="11" width="8" height="2"></rect>
+            <rect id="Rectangle-Copy" fill="#A8A8A8" fill-rule="evenodd" x="16" y="19" width="8" height="2"></rect>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,7 @@
+<!--components/loading/loading.wxml-->
+<view class='wx-loading-container' hidden="{{!isShow}}">
+    <view class='wx-loading-mask'></view>
+    <view class='wx-loading'>
+      <view class='wx-loading-text'>{{ text }}</view>
+    </view>
+</view>

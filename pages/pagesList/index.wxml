@@ -1,0 +1,39 @@
+<!--pages/pagesList/index.wxml-->
+<topbar bgColor="bg-gradual-blue" isBack="{{true}}">
+  <!-- <view slot="backText">Back</view> -->
+  <view slot="content">{{siteInfo.name}}</view>
+</topbar>
+<view class="section section-features">
+  <view class="pages_label">
+    <view class="pages_label_title">{{title}}</view>
+    <view class="pages_label_bg"></view>
+  </view>
+  <view wx:if="{{loading === true && pages.length === 0}}" class="pages_loading skeleton">
+    <view class="skeleton-rect"></view>
+    <view class="skeleton-rect"></view>
+    <view class="skeleton-rect"></view>
+  </view>
+  <view wx:else class="section-content is-flex center-xs">
+    <view class="feature-list is-flex direction-vert middle-xs">
+      <block wx:for="{{pages}}" wx:key="id">
+        <view bindtap='bindPageByID' id="{{item.id}}" class="feature-card card-type-life">
+          <view class="card-cover"
+            style='background-image:url({{item.meta.thumbnail}});'></view>
+          <view data-jarallax-element="-80" class="card-main is-flex direction-vert between-xs parallax">
+            <view class="card-top">
+              <view class="card-title">{{item.title.rendered}}</view>
+              <view class="card-content">
+                <text>{{item.description}}</text>
+              </view>
+            </view>
+            <view class="card-actions is-flex end-xs">
+              <view class="action-item is-flex middle-xs">
+                <text>更多</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,16 @@
+/* components/topbar.wxss */
+.wx-topbar {
+  background: -webkit-linear-gradient(to right, #6188ef, #98b4f5);
+  background: linear-gradient(to right, #6188ef, #98b4f5);
+}
+
+.wx-topbar .avatar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wx-topbar .content {
+
+}

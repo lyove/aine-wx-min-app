@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/category/index",
+    "pages/pagesList/index",
+    "pages/page/index",
+    "pages/articleList/index",
+    "pages/article/index",
+    "pages/userProfile/index",
+    "pages/ssmlDemo/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "Aine",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#AAAAAA",
+    "selectedColor": "#262626",
+    "borderStyle": "black",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/home/index",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_on.png"
+      },
+      {
+        "text": "栏目",
+        "pagePath": "pages/category/index",
+        "iconPath": "images/category.png",
+        "selectedIconPath": "images/category_on.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/userProfile/index",
+        "iconPath": "images/user.png",
+        "selectedIconPath": "images/user_on.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "topbar": "/components/topbar/topbar",
+    "loading": "/components/loading/loading",
+    "tabs": "/components/tabs/tabs",
+    "dialog": "/components/dialog/dialog"
+  },
+  "sitemapLocation": "sitemap.json"
+}

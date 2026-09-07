@@ -1,0 +1,82 @@
+<!--pages/profile/profile.wxml-->
+<topbar bgColor="bg-gradual-blue">
+  <view slot="avatar" class="userProfile-headAvatar">
+    <image wx:if="{{user == null || user == ''}}" src="/images/avatar-default.png" mode="widthFix"></image>
+    <image wx:else src="{{user.avatarUrl}}" mode="widthFix"></image>
+    <button class="login-button" bindtap="getUserProfile"></button>
+  </view>
+  <view slot="content">个人中心</view>
+</topbar>
+<view class="user-container" style="padding-top: {{navBarHeight}}px;">
+  <view class="user-information relative" bindtap="getUserProfile">
+    <view wx:if="{{user.avatarUrl}}" class="user-information_img" style="background-image: url('{{user.avatarUrl}}')">
+    </view>
+    <image wx:else class="user-information_img" src="../../images/avatar.png"></image>
+    <view class="nickname">
+      <view class="user-information_nickname">{{user.nickName ? user.nickName : '游客'}}</view>
+      <view class="user-information_introduction">{{user ? '妙程序就是好看!' : '点击这里授权登录'}}</view>
+    </view>
+  </view>
+  <view class="user-items">
+    <view class="user-item relative">
+      <text class="user-item_text">我的点赞</text>
+      <view class="user-item_icon">
+        <image class="user-item_icon_img" src="../../images/my-inform.svg">
+        </image>
+        <view wx:if="{{unreadMessageCount > 0}}" class="user-item_icon_sup">
+          {{unreadMessageCount}}
+        </view>
+      </view>
+      <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
+      <button wx:else class="userLogin" data-url="/pages/articleList/index?type=userLike" bindtap="bindHandler"></button>
+    </view>
+    <view class="user-item relative">
+      <text class="user-item_text">我的收藏</text>
+      <view class="user-item_icon">
+        <image class="user-item_icon_img" src="../../images/my-like.svg">
+        </image>
+      </view>
+      <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
+      <button wx:else class="userLogin" data-url="/pages/articleList/index?type=userFav" bindtap="bindHandler"></button>
+    </view>
+    <view class="user-item relative">
+      <text class="user-item_text">我的评论</text>
+      <view class="user-item_icon">
+        <image class="user-item_icon_img" src="../../images/my-dynamic.svg">
+        </image>
+      </view>
+      <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
+      <button wx:else class="userLogin" data-url="/pages/articleList/index?type=userComments" bindtap="bindHandler"></button>
+    </view>
+    <view class="user-item relative">
+      <text class="user-item_text">订阅更新</text>
+      <view class="user-item_icon">
+        <image class="user-item_icon_img" src="../../images/subscribe.png"></image>
+      </view>
+      <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
+      <button wx:else class="userLogin" bindtap="bindSubscribe"></button>
+    </view>
+    <view class="user-item">
+      <text class="user-item_text">问题反馈</text>
+      <view class="user-item_icon">
+        <image class="user-item_icon_img" src="../../images/feedback.svg">
+        </image>
+      </view>
+      <button class="auth-btn" open-type="contact"></button>
+    </view>
+    <view class="user-item">
+      <text class="user-item_text">清除缓存</text>
+      <view class="user-item_icon">
+        <image class="user-item_icon_img"
+          src="../../images/small-logo-gray-with-radius.svg"></image>
+      </view>
+      <button class="auth-btn" bindtap="loginOut"></button>
+    </view>
+    <view class="user-item">
+      <text class="user-item_text">Tooltik</text>
+      <view class="user-item_icon">
+      </view>
+      <button class="tooltik-btn" bindtap="bindTooltik"></button>
+    </view>
+  </view>
+</view>

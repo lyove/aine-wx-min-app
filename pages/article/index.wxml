@@ -1,0 +1,195 @@
+<!--pages/article/index.wxml-->
+<topbar bgColor="bg-gradual-blue" isBack="{{true}}">
+  <!-- <view slot="backText">Back</view> -->
+  <view slot="content">文章详情</view>
+</topbar>
+<view class="header-banner">
+  <image wx:if="{{detail.meta.thumbnail}}" class='header-image' src='{{detail.meta.thumbnail}}' mode="widthFix"></image>
+  <view wx:else class="header-image-none"></view>
+</view>
+<view class="article-detail {{enableComment ? '' : 'disable-comment'}}">
+  <view wx:if="{{detail}}" class="article-info">
+    <text class="title">{{detail.title.rendered}}</text>
+    <view class="meta">
+      <text class="cuIcon-profile"></text>
+      <text class="author">{{detail.author.name}}</text>
+      <text class="cuIcon-qrcode"></text>
+      <text class="category">{{detail.category[0].name}}</text>
+      <text class="cuIcon-time"></text>
+      <text class="time">{{detail.date}}</text>
+    </view>
+  </view>
+  <view wx:else class="article-info skeleton">
+    <view class="title"></view>
+    <view class="meta">
+      <text class="avator"></text>
+      <i></i>
+      <text class="category"></text>
+      <i></i>
+      <text class="time"></text>
+    </view>
+  </view>
+  <view wx:if="{{detail.contentParts && detail.contentParts.length}}" id="entry-content" class="entry-content">
+    <block wx:for="{{detail.contentParts}}" wx:key="key" wx:for-item="part">
+      <mp-html wx:if="{{part.k === 'html'}}" content="{{part.html}}" />
+      <ssml-viewer wx:elif="{{part.k === 'ssml'}}" model="{{part.model}}" />
+    </block>
+  </view>
+  <view wx:else id="entry-content" class="entry-content skeleton">
+    <view class="skeleton-rect"></view>
+    <view class="skeleton-rect"></view>
+    <view class="skeleton-rect"></view>
+  </view>
+</view>
+<view class="article-comment {{enableComment ? 'enable' : 'disable'}}">
+  <view class="topic-wrapper" id="comment">
+    <view class="topic-title">话题讨论</view>
+    <view class="onlooker-amount relative">
+      <text>邀请好友讨论 </text>
+      <text class="onlooker-arrow">>></text>
+      <button open-type='share' class="userLogin"></button>
+    </view>
+  </view>
+  <view wx:if="{{comments.length === 0}}" class="list-nodata">
+    <image class="nodata-img" lazyLoad="false" mode="aspectFit|aspectFill|widthFix" src="../../images/message.png">
+    </image>
+    <view class="nodata-text">
+      <text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;&nbsp;</text>还没有评论，快来抢沙发吧！
+    </view>
+  </view>
+  <view class="comment-reply">
+    <view class="comment-reply-item" bindtap="replyComment" id="{{detail.id}}" data-parent="{{item.id || '0'}}"
+      data-reply="{{item.author.name}}" data-formId="{{item.id}}" wx:for="{{comments || []}}" wx:for-item="item"
+      wx:key="id">
+      <view class="comment-header">
+        <view class="comment-header-left">
+          <image class="comment-avatar" src="{{item.author.avatar}}"></image>
+          <view class="comment-user-date">
+            <text>{{item.author.name}}</text>
+            <text>{{item.date}}</text>
+          </view>
+        </view>
+        <view class="comment-header-right">
+          <text></text>
+        </view>
+      </view>
+      <view class="comment-content" bindtap="replyComment" data-id="{{item.id}}" data-reply="{{item.author.name}}"
+        data-parent="{{item.id ? item.id : 0}}" data-userid="{{item.userid}}" data-formId="{{item.id}}"
+        data-commentdate="{{item.date}}">
+        <text bindtap="replay" data-id="{{item.id}}" data-name="{{item.author_name}}" data-userid="{{item.userid}}"
+          data-formId="{{item.id}}" data-commentdate="{{item.date}}"></text> {{item.content}}
+        <view class="{{item.images.length == 1 ? 'images-list' : 'image-list'}}">
+          <image mode="widthFix" data-url="{{image}}" data-urls="{{item.images}}" catchtap='openimage'
+            class="comment-image" src="{{image}}" wx:for="{{item.images}}" wx:for-item="image" wx:key="key"></image>
+        </view>
+      </view>
+      <!-- Level 1 reply -->
+      <view class="replay-content" wx:for="{{item.reply}}" wx:key="itemid1" wx:for-index="idx" wx:for-item="item1">
+        <view class="replay-user" catchtap="replyComment" data-id="{{item1.id}}" data-reply="{{item1.author.name}}"
+          data-parent="{{item1.id ? item1.id : 0}}" data-userid="{{item1.userid}}" data-formId="{{item1.id}}"
+          data-commentdate="{{item1.date}}">
+          <text class="font-weight-blod"> {{item1.author.name}} </text>:{{item1.content}}
+        </view>
+        <!-- Level 2 reply -->
+        <view wx:for="{{item1.reply}}" wx:key="itemid2" wx:for-index="idx" wx:for-item="item2">
+          <view class="replay-user" catchtap="replyComment" data-id="{{item2.id}}" data-reply="{{item2.author.name}}"
+            data-userid="{{item2.userid}}" data-formId="{{item2.id}}" data-commentdate="{{item2.date}}">
+            <text class="font-weight-blod"> {{item2.author.name}} </text> 回复 {{item1.author.name}}:{{item2.content}}
+          </view>
+          <!-- Level 3 reply -->
+          <view wx:for="{{item2.reply}}" wx:key="itemid3" wx:for-index="idx" wx:for-item="item3">
+            <view class="replay-user" catchtap="replyComment" data-id="{{item3.id}}"
+              data-reply="{{item3.author.name}}" data-userid="{{item3.userid}}" data-formId="{{item3.id}}"
+              data-commentdate="{{item3.date}}">
+              <text class="font-weight-blod"> {{item3.author.name}} </text> 回复
+              {{item2.author.name}}:{{item3.content}}
+            </view>
+            <!-- Level 4 reply -->
+            <view wx:for="{{item3.reply}}" wx:key="itemid4" wx:for-index="idx" wx:for-item="item4">
+              <view class="replay-user">
+                <text class="font-weight-blod"> {{item4.author.name}} </text> 回复
+                {{item3.author.name}}:{{item4.content}}
+              </view>
+            </view>
+            <!-- Level 4 reply -->
+          </view>
+          <!-- Level 3 reply  -->
+        </view>
+        <!-- Level 2 reply -->
+      </view>
+      <!-- Level 1 reply  -->
+      <view class="comment-footer">
+        <view class="comment-footer-inner"></view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="article-footer">
+  <view wx:if="{{advert.type === 'unit'}}" class="advert">
+    <ad unit-id="{{advert.code}}"></ad>
+  </view>
+  <view class="article-fav-like-share">
+    <form wx:if="{{!showTextarea}}" catchsubmit="formSubmit" report-submit="true">
+      <view class="bottom-bar">
+        <view class="bottom-bar-btn">
+          <image bindtap="bindBack" class="bottom-back" src="../../images/back.png"></image>
+        </view>
+        <view class="bottom-bar-btn btn-space input-text {{enableComment ? '' : 'display-none'}}">
+          <text>{{placeholder}}</text>
+          <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
+          <button wx:else class="userLogin" bindtap="tapcomment"></button>
+        </view>
+        <view class="bottom-bar-btn btn-space">
+          <image class="bottom-fav" src="{{detail.isfav ? '../../images/collected.png' : '../../images/collect.png'}}">
+          </image>
+          <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
+          <button wx:else class="userLogin" bindtap="bindFavTap" id="{{detail.id}}"></button>
+        </view>
+        <view class="bottom-bar-btn btn-space">
+          <image class="bottom-like" src="{{detail.islike ? '../../images/liked.png' : '../../images/like.png'}}">
+          </image>
+          <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
+          <button wx:else class="userLogin" bindtap="bindLikeTap" id="{{detail.id}}"></button>
+        </view>
+        <view class="bottom-bar-btn btn-space">
+          <image bindtap="shareClick" class="bottom-share" src="../../images/share.png"></image>
+        </view>
+      </view>
+    </form>
+  </view>
+  <view class="comment-textarea" wx:if="{{showTextarea}}" capture-catch:touchmove>
+    <form catchsubmit="addComment">
+      <view class="textareaHeader">
+        <view bindtap="closeCommentary" class="cancel">取消</view>
+        <button wx:if="{{!user}}" class="nopublish" bindgetuserinfo="getUserProfile" openType="getUserInfo">登录</button>
+        <button wx:else bindtap="addComment" class="publish">发布</button>
+      </view>
+      <view wx:if="{{showTextarea}}" class="textareaBox">
+        <view wx:if="{{!focus}}" class="textareaInput">{{content}}</view>
+        <textarea autoFocus="true" name="inputComment" bindinput="bindInputContent" bindblur="onReplyBlur"
+          bindfocus="onRepleyFocus" class="textareaInput {{focus ? '' : 'hide'}}" fixed="true" focus="{{focus}}"
+          maxlength="1000" placeholder="{{placeholder}}" showConfirmBar="{{false}}"
+          class="absolute-top-0 width-100vw height-286rpx padding-24rpx" value="{{content}}"></textarea>
+        <view class="textNum">{{textNum}}/1000</view>
+      </view>
+    </form>
+  </view>
+  <view class="pagemake" wx:if="{{showTextarea}}" bindtap="closeCommentary"></view>
+  <view class="share-actionsheet {{shareshow ? 'share-actionsheet--show' : ''}}">
+    <view catchtap="handleActionsheetMaskClick" class="share-actionsheet__mask"
+      data-close-on-click-overlay="{{closeOnClickOverlay}}" data-component-id="{{componentId}}"></view>
+    <view class="share-actionsheet__container">
+      <button catchtap="downloadPrefix" class="share-btn share-actionsheet__btn">
+        <image class="down-icon" mode="aspectFit" src="../../images/down.svg"></image>
+        <text>分享海报图</text>
+      </button>
+      <button open-type="share" class="share-btn share-actionsheet__btn">
+        <image class="down-icon" mode="aspectFit" src="../../images/wechat.svg"></image>
+        <text>分享给朋友</text>
+      </button>
+    </view>
+  </view>
+</view>
+<view class="canvas">
+  <canvas canvas-id="prefix" class="canvas-prefix"></canvas>
+</view>
