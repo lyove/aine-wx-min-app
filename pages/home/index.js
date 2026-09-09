@@ -8,7 +8,7 @@ Page({
   data: {
     siteInfo: '',
     user: app.globalData.user,
-    navBarHeight: wx.getSystemInfoSync().statusBarHeight,
+    navBarHeight: wx.getWindowInfo().statusBarHeight,
     placeHolder: '搜索、文章、图片、视频',
     autoFocus: false,
     inputEnable: true,
@@ -27,18 +27,13 @@ Page({
     autoplay: !0,
     interval: 3e3,
     currentSwiper: 0,
-  
     isLastPage: false,
   },
 
   onLoad: function () {
-    let _this = this;
-    wx.getSystemInfo({
-      success: function (a) {
-        _this.setData({
-          isIphoneX: a.model.match(/iPhone X/gi)
-        });
-      }
+    const deviceInfo = wx.getDeviceInfo();
+    this.setData({
+      isIphoneX: (deviceInfo.model || '').match(/iPhone X/gi)
     });
     this.getSiteInfo();
     this.getStickyArticles();

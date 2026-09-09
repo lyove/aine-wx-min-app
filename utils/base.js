@@ -25,10 +25,7 @@ API.template = function () {
 API.request = function (url, method = "GET", data = {}, args = { token: true }) {
 
 	return new Promise(function (resolve, reject) {
-
 		url = API_HOST + url;
-		// Note: Aine CMS read APIs do not need access_token (public API enabled, or requests without Origin are allowed directly)
-
 		wx.request({
 			url: url,
 			data: data,
@@ -59,7 +56,6 @@ API.request = function (url, method = "GET", data = {}, args = { token: true }) 
 			}
 		})
 	});
-
 }
 
 API.get = function (url, data = {}, args = { token: false }) {
@@ -111,7 +107,7 @@ API.logout = function () {
 API.getUserProfile = function () {
 	return new Promise(function (resolve, reject) {
 		Auth.getUserInfo().then(data => {
-			API.post('/wp-json/mp/v1/user/login', data, { token: false }).then(res => {
+			API.post('/user', data, { token: false }).then(res => {
 				API.storageUser(res);
 				resolve(res.user);
 			}, err => {

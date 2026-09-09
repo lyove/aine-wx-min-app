@@ -133,13 +133,4 @@ Page({
       duration: 1500
     });
   },
-
-  // Toolkit (under development)
-  bindTooltik: function (e) {
-    wx.showToast({
-      title: '功能开发中，敬请期待',
-      icon: 'none',
-      duration: 1500
-    });
-  },
 })

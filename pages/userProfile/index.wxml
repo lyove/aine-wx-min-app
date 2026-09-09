@@ -72,11 +72,5 @@
       </view>
       <button class="auth-btn" bindtap="loginOut"></button>
     </view>
-    <view class="user-item">
-      <text class="user-item_text">Tooltik</text>
-      <view class="user-item_icon">
-      </view>
-      <button class="tooltik-btn" bindtap="bindTooltik"></button>
-    </view>
   </view>
 </view>

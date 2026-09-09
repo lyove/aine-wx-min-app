@@ -27,13 +27,9 @@ Page({
    * Lifecycle function -- called when the page loads
    */
   onLoad: function (options) {
-    let _this = this
-    wx.getSystemInfo({
-      success: function (a) {
-        _this.setData({
-          isIphoneX: a.model.match(/iPhone X/gi)
-        });
-      }
+    const deviceInfo = wx.getDeviceInfo();
+    this.setData({
+      isIphoneX: (deviceInfo.model || '').match(/iPhone X/gi)
     });
     this.setData({ 
       options: options 
@@ -376,7 +372,7 @@ Page({
     args.template = template;
     args.status = status;
     args.pages = getCurrentPages()[0].route;
-    args.platform = wx.getSystemInfoSync().platform;
+    args.platform = wx.getDeviceInfo().platform;
     args.program = 'WeChat';
     API.subscribeMessage(args).then(res => {
       // console.log(res)
