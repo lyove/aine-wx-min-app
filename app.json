@@ -8,6 +8,7 @@
     "pages/article/index",
     "pages/userProfile/index"
   ],
+  "lazyCodeLoading": "requiredComponents",
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ffffff",
