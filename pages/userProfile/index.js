@@ -109,26 +109,7 @@ Page({
    */
   bindHandler: function (e) {
     wx.showToast({
-      title: '功能开发中，敬请期待',
-      icon: 'none',
-      duration: 1500
-    });
-  },
-
-  /**
-   * Subscribe (under development)
-   */
-  subscribeMessage: function (template, status) {
-    wx.showToast({
-      title: '功能开发中，敬请期待',
-      icon: 'none',
-      duration: 1500
-    });
-  },
-
-  bindSubscribe: function () {
-    wx.showToast({
-      title: '功能开发中，敬请期待',
+      title: '功能开发中...',
       icon: 'none',
       duration: 1500
     });
