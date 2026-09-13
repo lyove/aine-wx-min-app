@@ -78,6 +78,12 @@ function buildPagination(data) {
 
 // ==================== API Definitions ====================
 
+const BOOLEAN_FILTERS = {
+	featured: 'featured',
+	recommended: 'recommended',
+	slider: 'slider'
+};
+
 /**
  * Site info
  * GET /api/project/cms
@@ -121,6 +127,11 @@ const getArticlesList = function (type, data) {
 	let filter = '';
 	if (data.categories) {
 		filter = `&filters.category.id=${data.categories}`;
+	}
+
+	// Boolean flag filter (featured / recommended / slider)
+	if (type && BOOLEAN_FILTERS[type]) {
+		filter += `&filters.${BOOLEAN_FILTERS[type]}=1`;
 	}
 
 	return API.get(`/api/project/${PROJECT_IDENTIFIER}/articles?sort=published_at:desc&timestamps=true&${buildPagination(data)}${filter}`)

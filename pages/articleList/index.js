@@ -21,6 +21,18 @@ const requestType = {
     title: '置顶文章',
     api: 'getStickyArticles'
   },
+  featured: {
+    title: 'Featured',
+    api: 'getArticlesList'
+  },
+  recommended: {
+    title: 'Recommended',
+    api: 'getArticlesList'
+  },
+  slider: {
+    title: 'Slider',
+    api: 'getArticlesList'
+  },
   rand: {
     title: '随机文章',
     api: 'getRandArticles'
@@ -169,7 +181,7 @@ Page({
       });
     }
     if (this.data.options.type) {
-      this.getArticlesList(this.options.type);
+      this.getArticlesList(this.data.options.type);
     }
   },
 
@@ -194,7 +206,7 @@ Page({
         });
       }
       if (this.data.options.type) {
-        this.getArticlesList(this.options.type, {
+        this.getArticlesList(this.data.options.type, {
           page: this.data.page + 1
         });
       }
@@ -250,7 +262,7 @@ Page({
         title: 'Loading'
       });
     }, 100);
-    API[requestApi](data).then(res => {
+    API[requestApi](type, data).then(res => {
       wx.hideLoading();
       let args = {};
       if (res.length < 10) {

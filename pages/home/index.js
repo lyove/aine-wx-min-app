@@ -49,31 +49,24 @@ Page({
 
   },
 
-  // Hot articles
+  // Featured articles
   bindHotArticles: function () {
     wx.navigateTo({
-      url: `/pages/articleList/index?type=mostViews`,
+      url: `/pages/articleList/index?type=featured`,
     });
   },
 
-  // Open mini program
-  toMiniProgram: function () {
-    wx.navigateToMiniProgram({
-      appId: 'wxa01e1baa46426a94',
-      path: '',
-      extraData: {
-
-      },
-      success(res) {
-        // Opened successfully
-      }
-    })
+  // Recommended articles
+  bindRecommended: function () {
+    wx.navigateTo({
+      url: `/pages/articleList/index?type=recommended`,
+    });
   },
 
-  // Open page list
-  bindPageLists: function () {
+  // Slider articles
+  bindSliderArticles: function () {
     wx.navigateTo({
-      url: '/pages/pagesList/index',
+      url: `/pages/articleList/index?type=slider`,
     });
   },
 

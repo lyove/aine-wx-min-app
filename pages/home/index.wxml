@@ -65,17 +65,17 @@
         </view>
         <text>热门</text>
       </view>
-      <view class="cu-item" bindtap="toMiniProgram">
+      <view class="cu-item" bindtap="bindRecommended">
         <view class="bg-img bg-imgd">
           <image src="../../images/portfolio-icon-app.png"></image>
         </view>
-        <text>社区</text>
+        <text>推荐</text>
       </view>
-      <view class="cu-item" bindtap="bindPageLists">
+      <view class="cu-item" bindtap="bindSliderArticles">
         <view class="bg-img bg-imgh">
           <image src="../../images/portfolio-icon-news.png"></image>
         </view>
-        <text>资讯</text>
+        <text>Slider</text>
       </view>
       <view class="cu-item">
         <view class="bg-img bg-imge">
