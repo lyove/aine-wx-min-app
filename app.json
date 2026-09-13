@@ -6,8 +6,7 @@
     "pages/page/index",
     "pages/articleList/index",
     "pages/article/index",
-    "pages/userProfile/index",
-    "pages/ssmlDemo/index"
+    "pages/userProfile/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
