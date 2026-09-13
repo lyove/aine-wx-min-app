@@ -46,13 +46,16 @@ function normalizeCategory(item) {
 	if (!item || typeof item !== 'object') {
 	  return item;
 	}
-	const featured = item['featured-image'] || {};
+	const media = item.image || item['featured-image'] || {};
+	const cover = typeof media === 'object' && media !== null
+		? (media.full_url_thumb || media.full_url || '')
+		: (typeof media === 'string' ? media : '');
 	return {
 		...item,
 		id: item.id,
 		name: item.title || '',
 		description: item.description || '',
-		cover: featured.full_url_thumb || featured.full_url || ''
+		cover: cover
 	};
 }
 

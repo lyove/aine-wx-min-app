@@ -5,6 +5,13 @@
 const app = getApp();
 import API from '../../utils/api';
 
+const DEFAULT_COVERS = {
+  'news-zh': '/images/category-news.jpg',
+  'tutorials-zh': '/images/category-tutorials.jpg',
+  'reviews-zh': '/images/category-reviews.jpg'
+};
+const DEFAULT_COVER = '/images/default_thumb.png';
+
 Page({
   /**
    * Page initial data
@@ -124,8 +131,14 @@ Page({
     }, 100);
     API.getCategories().then(res => {
       wx.hideLoading();
+      const list = (res || []).map(item => {
+        if (!item.cover) {
+          item.cover = DEFAULT_COVERS[item.slug] || DEFAULT_COVERS[item.name] || DEFAULT_COVER;
+        }
+        return item;
+      });
       let args = {};
-      if (res.length < 10) {
+      if (list.length < 10) {
         this.setData({
           isLastPage: true
         });
@@ -136,10 +149,10 @@ Page({
           icon: 'loading',
           duration: 1000
         });
-        args.category = [].concat(this.data.category, res);
+        args.category = [].concat(this.data.category, list);
         args.page = this.data.page + 1;
       } else {
-        args.category = res || [];
+        args.category = list || [];
         args.page = 1;
       }
       this.setData({

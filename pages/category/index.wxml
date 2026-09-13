@@ -17,12 +17,11 @@
     <view class="feature-list is-flex direction-vert middle-xs">
       <block wx:for="{{category}}" wx:key="id">
         <view bindtap='bindCateByID' id="{{item.id}}" class="feature-card card-type-life">
-          <view class="card-cover"
-            style='background-image:url({{item.cover}});'></view>
+          <image class="card-cover" src="{{item.cover}}" mode="aspectFill"></image>
           <view data-jarallax-element="-80" class="card-main is-flex direction-vert between-xs parallax">
             <view class="card-top">
               <view class="card-title">{{item.name}}</view>
-              <view class="card-content">
+              <view wx:if="{{item.description}}" class="card-content">
                 <text>{{item.description}}</text>
               </view>
             </view>

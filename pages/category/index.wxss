@@ -57,12 +57,9 @@
 
 .section-features .feature-list .feature-card .card-cover {
   width: 100%;
-  padding-top: 380rpx;
-  max-width: 100%;
+  height: 380rpx;
+  display: block;
   background-color: #e8ecf1; /* Default background when a category has no cover image */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
   border-top-left-radius: 15rpx;
   border-top-right-radius: 15rpx;
 }
