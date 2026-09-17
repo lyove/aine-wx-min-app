@@ -155,7 +155,12 @@ Page({
       // Normalize the user object (avatar URL etc.)
       const u = Object.assign({}, res.user || {});
       let avatar = u.avatar || '';
-      if (avatar && avatar.indexOf('http') !== 0) {
+      if (avatar && avatar.indexOf('https://') === 0) {
+        // already https, keep as-is
+      } else if (avatar && avatar.indexOf('http://') === 0) {
+        // mini programs only load https images
+        avatar = avatar.replace('http://', 'https://');
+      } else if (avatar) {
         avatar = API.getHost() + avatar;
       }
       u.avatarUrl = avatar;

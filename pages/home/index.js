@@ -29,6 +29,10 @@ Page({
     interval: 3e3,
     currentSwiper: 0,
     isLastPage: false,
+    showLogin: false,
+    loginAccount: '',
+    loginPassword: '',
+    logining: false,
   },
 
   onLoad: function () {
@@ -75,7 +79,14 @@ Page({
    * Lifecycle function -- called when the page is shown
    */
   onShow: function () {
-
+    // Sync login state (e.g. logged in on the profile page, then back to home)
+    let user = app.globalData.user;
+    if (!user) {
+      user = '';
+    }
+    this.setData({
+      user: user,
+    });
   },
 
   /**
@@ -149,30 +160,109 @@ Page({
   },
 
   /**
-   * Login
+   * Open the login dialog (top avatar)
    */
-  getUserProfile: function () {
-    if(this.data.user) {
+  showLogin: function () {
+    if (this.data.user) {
       wx.showToast({
-        title: '已经登录',
+        title: '已登录',
         icon: 'success',
         duration: 800
       });
       return;
     }
-    wx.showLoading({
-      title: '正在登录...',
+    this.setData({
+      showLogin: true,
     });
-    API.getUserProfile().then(res => {
+  },
+
+  /**
+   * Stop event propagation inside the dialog
+   */
+  noop: function () {
+
+  },
+
+  /**
+   * Close the login dialog
+   */
+  closeLogin: function () {
+    if (this.data.logining) {
+      return;
+    }
+    this.setData({
+      showLogin: false,
+    });
+  },
+
+  /**
+   * Account input
+   */
+  onLoginAccount: function (e) {
+    this.setData({
+      loginAccount: e.detail.value,
+    });
+  },
+
+  /**
+   * Password input
+   */
+  onLoginPassword: function (e) {
+    this.setData({
+      loginPassword: e.detail.value,
+    });
+  },
+
+  /**
+   * Submit login against the Aine account (api.lyove.com)
+   */
+  submitLogin: function () {
+    if (this.data.logining) {
+      return;
+    }
+    const account = (this.data.loginAccount || '').trim();
+    const password = this.data.loginPassword || '';
+    if (!account || !password) {
+      wx.showToast({
+        title: '请输入账号和密码',
+        icon: 'none',
+      });
+      return;
+    }
+    this.setData({
+      logining: true,
+    });
+    API.loginByPassword(account, password).then(res => {
+      // Normalize the user object (avatar URL etc.)
+      const u = Object.assign({}, res.user || {});
+      let avatar = u.avatar || '';
+      if (avatar && avatar.indexOf('https://') === 0) {
+        // already https, keep as-is
+      } else if (avatar && avatar.indexOf('http://') === 0) {
+        // mini programs only load https images
+        avatar = avatar.replace('http://', 'https://');
+      } else if (avatar) {
+        avatar = API.getHost() + avatar;
+      }
+      u.avatarUrl = avatar;
+      API.storageUser(Object.assign({}, res, { user: u }));
       this.setData({
-        user: res
+        user: u,
+        showLogin: false,
+        loginAccount: '',
+        loginPassword: '',
+        logining: false,
       });
-      wx.hideLoading();
-    })
-      .catch(err => {
-        console.log(err);
-        wx.hideLoading();
+      wx.showToast({
+        title: '登录成功',
+        icon: 'success',
       });
+    }).catch(err => {
+      console.log(err);
+      this.setData({
+        logining: false,
+      });
+    });
   },
 
   onInput: function (e) {

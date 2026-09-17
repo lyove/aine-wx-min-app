@@ -1,9 +1,9 @@
 <!--index.wxml-->
 <topbar bgColor="bg-gradual-blue">
   <view slot="avatar" class="index-headAvatar">
-    <image wx:if="{{user == null || user == ''}}" src="/images/avatar-default.png" mode="widthFix"></image>
-    <image wx:else src="{{user.avatarUrl}}" mode="widthFix"></image>
-    <button class="login-button" bindtap="getUserProfile"></button>
+    <image wx:if="{{user.avatarUrl || user.avatar}}" src="{{user.avatarUrl || user.avatar}}" mode="widthFix"></image>
+    <image wx:else src="/images/avatar-default.png" mode="widthFix"></image>
+    <button class="login-button" bindtap="showLogin"></button>
   </view>
   <view slot="content" class="index-headTitle">{{siteInfo.name}} 首页</view>
 </topbar>
@@ -194,6 +194,26 @@
       </view>
       <view wx:if="{{isLastPage&&posts.length > 0}}" class="last_text">已经到底啦~</view>
       <view wx:if="{{!isLastPage&&posts.length > 0}}" class="last_text">努力加载中...</view>
+    </view>
+  </view>
+</view>
+
+<!-- 登录弹框 -->
+<view wx:if="{{showLogin}}" class="login-mask" bindtap="closeLogin">
+  <view class="login-dialog" catchtap="noop">
+    <view class="login-title">登录 Aine 账号</view>
+    <view class="login-sub">使用 api.lyove.com 系统账号登录</view>
+    <view class="login-input-wrap">
+      <input class="login-input" placeholder="邮箱或用户名" placeholder-class="login-placeholder"
+        value="{{loginAccount}}" bindinput="onLoginAccount" />
+    </view>
+    <view class="login-input-wrap">
+      <input class="login-input" password placeholder="密码" placeholder-class="login-placeholder"
+        value="{{loginPassword}}" bindinput="onLoginPassword" confirm-type="done" bindconfirm="submitLogin" />
+    </view>
+    <view class="login-btns">
+      <view class="login-btn cancel" bindtap="closeLogin">取消</view>
+      <view class="login-btn submit {{logining ? 'disabled' : ''}}" bindtap="submitLogin">{{logining ? '登录中...' : '登 录'}}</view>
     </view>
   </view>
 </view>
