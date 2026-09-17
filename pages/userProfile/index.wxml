@@ -16,6 +16,7 @@
       <view class="user-information_nickname">{{user.nickName ? user.nickName : (user.name ? user.name : '游客')}}</view>
       <view class="user-information_introduction">{{user ? 'Welcome!' : '点击登录'}}</view>
     </view>
+    <view wx:if="{{user}}" class="login-out" catchtap="loginOut">退出登录</view>
   </view>
   <view class="user-items">
     <view class="user-item relative" data-type="userLike" bindtap="goUserList">
