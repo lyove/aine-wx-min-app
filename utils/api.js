@@ -366,6 +366,14 @@ const Loginout = function () {
 	return API.logout();
 }
 
+/**
+ * Login with an Aine account (email or name + password)
+ * POST /api/login -> { access_token, expired_in, user }
+ */
+const loginByPassword = function (account, password) {
+	return API.post('/login', { account, password }, { token: false });
+}
+
 // ==================== Exports ====================
 
 API.getSiteInfo = getSiteInfo;
@@ -395,6 +403,7 @@ API.addComment = API.guard(addComment);
 API.subscribeMessage = API.guard(subscribeMessage);
 API.getCodeImg = getCodeImg;
 API.Loginout = Loginout;
+API.loginByPassword = loginByPassword;
 API.getMenuSetting = getMenuSetting;
 API.indexAdsense = indexAdsense;
 API.listAdsense = listAdsense;

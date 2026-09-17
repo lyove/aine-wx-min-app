@@ -214,3 +214,88 @@
   width: 100%;
   height: 24rpx;
 }
+
+/* Login dialog */
+.login-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.login-dialog {
+  width: 600rpx;
+  margin-top: 30vh;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 48rpx 36rpx 36rpx;
+  box-sizing: border-box;
+}
+
+.login-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  text-align: center;
+  color: #262626;
+}
+
+.login-sub {
+  font-size: 24rpx;
+  color: #888;
+  text-align: center;
+  margin: 12rpx 0 36rpx;
+}
+
+.login-input-wrap {
+  border: 1rpx solid #e5e5e5;
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  margin-bottom: 24rpx;
+  background: #fafafa;
+}
+
+.login-input {
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 28rpx;
+}
+
+.login-placeholder {
+  color: #bbb;
+}
+
+.login-btns {
+  display: flex;
+  margin-top: 16rpx;
+}
+
+.login-btn {
+  flex: 1;
+  height: 84rpx;
+  line-height: 84rpx;
+  text-align: center;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+}
+
+.login-btn.cancel {
+  background: #f2f2f2;
+  color: #666;
+  margin-right: 20rpx;
+}
+
+.login-btn.submit {
+  background: #F1C54F;
+  color: #fff;
+  font-weight: 600;
+}
+
+.login-btn.submit.disabled {
+  opacity: 0.6;
+}

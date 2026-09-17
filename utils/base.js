@@ -41,6 +41,14 @@ API.request = function (url, method = "GET", data = {}, args = { token: true }) 
 						mask: false,
 						duration: 1000
 					});
+				} else if (body.message) {
+					// Show the backend-provided error message (e.g. login failures)
+					wx.showToast({
+						title: body.message,
+						icon: 'none',
+						duration: 2000
+					});
+					reject(body);
 				} else {
 					wx.showToast({
 						title: "请求数据出错",
