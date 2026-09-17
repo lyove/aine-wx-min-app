@@ -124,6 +124,8 @@ Page({
           date: res.date ? /\d{4}-\d{1,2}-\d{1,2}/g.exec(res.date) : '-'
         }
       });
+      // Load interaction state (counts + current user's favorite/like status)
+      this.getPostInteractions(id);
       if (res.comments !== 0) {
         this.getComments({
           id: id,
@@ -194,87 +196,55 @@ Page({
   },
 
   bindFavTap: function (e) {
-    let args = {};
-    let detail = this.data.detail;
-    args.id = detail.id;
-    API.setFavComments(args).then(res => {
-      if (res.status === 200) {
-        detail.isfav = true
-        this.setData({
-          detail: detail
-        });
-        wx.showToast({
-          title: '加入收藏!',
-          icon: 'success',
-          duration: 900,
-        });
-      } else if (res.status === 202) {
-        detail.isfav = false;
-        this.setData({
-          detail: detail
-        });
-        wx.showToast({
-          title: '取消收藏!',
-          icon: 'success',
-          duration: 900,
-        });
-      } else {
-        wx.showModal({
-          title: '温馨提示',
-          content: '数据出错, 建议清除缓存重新尝试',
-          success: response => {
-            wx.removeStorageSync('user')
-            wx.removeStorageSync('token')
-            wx.removeStorageSync('expired_in')
-          }
-        });
-      }
-    })
-      .catch(err => {
-        console.log(err)
+    const detail = this.data.detail;
+    if (!detail || !detail.id) {
+      return;
+    }
+    if (!API.getUser()) {
+      this.promptLogin();
+      return;
+    }
+    const id = detail.id;
+    const action = detail.isfav ? API.removeFavorite(id) : API.addFavorite(id);
+    action.then(res => {
+      this.setData({
+        'detail.isfav': !!res.is_favorited,
+        'detail.favCount': res.favorite_count || 0
       });
+      wx.showToast({
+        title: res.is_favorited ? '加入收藏!' : '取消收藏!',
+        icon: 'success',
+        duration: 900,
+      });
+    }).catch(err => {
+      console.log(err);
+    });
   },
 
   bindLikeTap: function (e) {
-    let args = {};
-    let detail = this.data.detail;
-    args.id = detail.id;
-    API.setLikeComments(args).then(res => {
-      if (res.status === 200) {
-        detail.islike = true;
-        this.setData({
-          detail: detail,
-        });
-        wx.showToast({
-          title: '谢谢点赞!',
-          icon: 'success',
-          duration: 900,
-        });
-      } else if (res.status === 202) {
-        detail.islike = false;
-        this.setData({
-          detail: detail,
-        });
-        wx.showToast({
-          title: '取消点赞!',
-          icon: 'success',
-          duration: 900,
-        });
-      } else {
-        wx.showModal({
-          title: '温馨提示',
-          content: '数据出错, 建议清除缓存重新尝试',
-          success: response => {
-            wx.removeStorageSync('user')
-            wx.removeStorageSync('token')
-            wx.removeStorageSync('expired_in')
-          }
-        });
-      }
-    })
-      .catch(err => {
-        console.log(err)
+    const detail = this.data.detail;
+    if (!detail || !detail.id) {
+      return;
+    }
+    if (!API.getUser()) {
+      this.promptLogin();
+      return;
+    }
+    const id = detail.id;
+    const action = detail.islike ? API.removeLike(id) : API.addLike(id);
+    action.then(res => {
+      this.setData({
+        'detail.islike': !!res.is_liked,
+        'detail.likeCount': res.like_count || 0
       });
+      wx.showToast({
+        title: res.is_liked ? '谢谢点赞!' : '取消点赞!',
+        icon: 'success',
+        duration: 900,
+      });
+    }).catch(err => {
+      console.log(err);
+    });
   },
 
   addComment: function (e) {
@@ -290,7 +260,7 @@ Page({
         content: '必须登录才可以评论',
         success: function (res) {
           if (res.confirm) {
-            _this.getUserProfile();
+            _this.promptLogin();
           }
         }
       });
@@ -338,7 +308,7 @@ Page({
             content: '必须登录才可以评论',
             success: function (res) {
               if (res.confirm) {
-                _this.getUserProfile();
+                _this.promptLogin();
               }
             }
           });
@@ -404,6 +374,36 @@ Page({
         console.log(err);
       }
     })
+  },
+
+  /**
+   * Load favorite/like state for this post (counts + current user's state)
+   */
+  getPostInteractions: function (id) {
+    API.getPostInteractions(id).then(res => {
+      if (!res || typeof res !== 'object') {
+        return;
+      }
+      this.setData({
+        'detail.isfav': !!res.is_favorited,
+        'detail.islike': !!res.is_liked,
+        'detail.favCount': res.favorite_count || 0,
+        'detail.likeCount': res.like_count || 0
+      });
+    }).catch(err => {
+      console.log(err);
+    });
+  },
+
+  /**
+   * Prompt the user to log in first
+   */
+  promptLogin: function () {
+    wx.showToast({
+      title: '请先登录',
+      icon: 'none',
+      duration: 1500
+    });
   },
 
   getUserProfile: function (e) {
@@ -584,11 +584,11 @@ Page({
     context.setFillStyle("#333333");
     context.setFontSize(32);
     context.setTextAlign('left');
-    context.fillText("Wordpress小程序", 240, 780);
+    context.fillText("小程序", 240, 780);
     context.setFillStyle("#666666");
     context.setFontSize(28);
     context.setTextAlign('left');
-    context.fillText("又一个 WordPress小程序", 240, 830);
+    context.fillText("又一个 小程序", 240, 830);
     context.setFillStyle("#696969");
     context.setFontSize(24);
     context.setTextAlign('left');

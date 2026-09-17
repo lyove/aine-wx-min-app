@@ -136,19 +136,19 @@
         </view>
         <view class="bottom-bar-btn btn-space input-text {{enableComment ? '' : 'display-none'}}">
           <text>{{placeholder}}</text>
-          <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
+          <button wx:if="{{!user}}" class="userLogin" bindtap="promptLogin"></button>
           <button wx:else class="userLogin" bindtap="tapcomment"></button>
         </view>
         <view class="bottom-bar-btn btn-space">
           <image class="bottom-fav" src="{{detail.isfav ? '../../images/collected.png' : '../../images/collect.png'}}">
           </image>
-          <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
+          <button wx:if="{{!user}}" class="userLogin" bindtap="promptLogin"></button>
           <button wx:else class="userLogin" bindtap="bindFavTap" id="{{detail.id}}"></button>
         </view>
         <view class="bottom-bar-btn btn-space">
           <image class="bottom-like" src="{{detail.islike ? '../../images/liked.png' : '../../images/like.png'}}">
           </image>
-          <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
+          <button wx:if="{{!user}}" class="userLogin" bindtap="promptLogin"></button>
           <button wx:else class="userLogin" bindtap="bindLikeTap" id="{{detail.id}}"></button>
         </view>
         <view class="bottom-bar-btn btn-space">
@@ -161,7 +161,7 @@
     <form catchsubmit="addComment">
       <view class="textareaHeader">
         <view bindtap="closeCommentary" class="cancel">取消</view>
-        <button wx:if="{{!user}}" class="nopublish" bindgetuserinfo="getUserProfile" openType="getUserInfo">登录</button>
+        <button wx:if="{{!user}}" class="nopublish" bindtap="promptLogin">登录</button>
         <button wx:else bindtap="addComment" class="publish">发布</button>
       </view>
       <view wx:if="{{showTextarea}}" class="textareaBox">

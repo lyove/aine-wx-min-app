@@ -307,17 +307,44 @@ const getComments = function () {
 }
 
 /**
- * Favorite post (backend not ready; under development)
+ * Favorite a post (current user)
+ * POST /api/project/note/favorites  { content_id }
  */
-const setFavComments = function () {
-	return Promise.reject(new Error('功能开发中'));
+const addFavorite = function (id) {
+	return API.post(`/api/project/${PROJECT_IDENTIFIER}/favorites`, { content_id: id }, { token: true });
 }
 
 /**
- * Like post (backend not ready; under development)
+ * Unfavorite a post (current user)
+ * DELETE /api/project/note/favorites/{id}
  */
-const setLikeComments = function () {
-	return Promise.reject(new Error('功能开发中'));
+const removeFavorite = function (id) {
+	return API.delete(`/api/project/${PROJECT_IDENTIFIER}/favorites/${id}`, {}, { token: true });
+}
+
+/**
+ * Like a post (current user)
+ * POST /api/project/note/likes  { content_id }
+ */
+const addLike = function (id) {
+	return API.post(`/api/project/${PROJECT_IDENTIFIER}/likes`, { content_id: id }, { token: true });
+}
+
+/**
+ * Unlike a post (current user)
+ * DELETE /api/project/note/likes/{id}
+ */
+const removeLike = function (id) {
+	return API.delete(`/api/project/${PROJECT_IDENTIFIER}/likes/${id}`, {}, { token: true });
+}
+
+/**
+ * Interaction state for a post: counts + current user's favorited / liked state
+ * GET /api/project/note/interactions/{id}
+ */
+const getPostInteractions = function (id) {
+	const withToken = API.getUser() ? true : false;
+	return API.get(`/api/project/${PROJECT_IDENTIFIER}/interactions/${id}`, {}, { token: withToken });
 }
 
 /**
@@ -447,8 +474,11 @@ API.getMostLikePosts = getMostLikePosts;
 API.getMostCommentPosts = getMostCommentPosts;
 API.getRecentCommentPosts = getRecentCommentPosts;
 API.getComments = getComments;
-API.setFavComments = API.guard(setFavComments);
-API.setLikeComments = API.guard(setLikeComments);
+API.addFavorite = addFavorite;
+API.removeFavorite = removeFavorite;
+API.addLike = addLike;
+API.removeLike = removeLike;
+API.getPostInteractions = getPostInteractions;
 API.getUserFavPosts = getUserFavPosts;
 API.getUserLikePosts = getUserLikePosts;
 API.getUserCommentsPosts = getUserCommentsPosts;

@@ -84,6 +84,10 @@ API.post = function (url, data, args = { token: true }) {
 	return API.request(url, "POST", data, args);
 }
 
+API.delete = function (url, data = {}, args = { token: true }) {
+	return API.request(url, "DELETE", data, args);
+}
+
 API.getUser = function () {
 	if (Auth.check()) {
 		return Auth.user();
