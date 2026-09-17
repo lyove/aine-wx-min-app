@@ -222,7 +222,7 @@ function ssmlToSegments(ssmlString) {
 }
 
 /**
- * Split a CMS article body (HTML with embedded SSML blocks) into render parts.
+ * Split a CMS post body (HTML with embedded SSML blocks) into render parts.
  * Mirrors the Aine frontend (SsmlContent.vue): the TinyMCE "SSML" plugin saves
  * each SSML block as
  *   <div class="ssml-block" contenteditable="false" data-ssml='{JSON model}' > ... </div>

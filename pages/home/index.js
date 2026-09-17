@@ -14,8 +14,8 @@ Page({
     inputEnable: true,
     stickyLoading: false,
     listLoading: false,
-    stickyArticle: [],
-    articles: [],
+    stickyPost: [],
+    posts: [],
     page: 1,
     catsLoading: false,
     category: [],
@@ -36,9 +36,9 @@ Page({
       isIphoneX: (deviceInfo.model || '').match(/iPhone X/gi)
     });
     this.getSiteInfo();
-    this.getStickyArticles();
+    this.getStickyPosts();
     this.getCategories();
-    this.getArticlesList();
+    this.getPostsList();
     this.getAdvert();
   },
 
@@ -49,24 +49,24 @@ Page({
 
   },
 
-  // Featured articles
-  bindHotArticles: function () {
+  // Featured posts
+  bindHotPosts: function () {
     wx.navigateTo({
-      url: `/pages/articleList/index?type=featured`,
+      url: `/pages/postList/index?type=featured`,
     });
   },
 
-  // Recommended articles
+  // Recommended posts
   bindRecommended: function () {
     wx.navigateTo({
-      url: `/pages/articleList/index?type=recommended`,
+      url: `/pages/postList/index?type=recommended`,
     });
   },
 
-  // Slider articles
-  bindSliderArticles: function () {
+  // Slider posts
+  bindSliderPosts: function () {
     wx.navigateTo({
-      url: `/pages/articleList/index?type=slider`,
+      url: `/pages/postList/index?type=slider`,
     });
   },
 
@@ -105,8 +105,8 @@ Page({
       page: 1,
       isLastPage: false
     });
-    this.getStickyArticles();
-    this.getArticlesList();
+    this.getStickyPosts();
+    this.getPostsList();
   },
 
   /**
@@ -117,7 +117,7 @@ Page({
       this.setData({
         isBottom: true
       });
-      this.getArticlesList({
+      this.getPostsList({
         page: this.data.page + 1
       });
     }
@@ -186,14 +186,14 @@ Page({
     });
   },
 
-  getStickyArticles: function () {
+  getStickyPosts: function () {
     this.setData({
       stickyLoading: true
     });
-    API.getStickyArticles().then(res => {
+    API.getStickyPosts().then(res => {
       this.setData({
         stickyLoading: false,
-        stickyArticle: res || []
+        stickyPost: res || []
       });
     })
       .catch(err => {
@@ -218,7 +218,7 @@ Page({
           index
         }))
       }, () => {
-        this.getArticlesListById(res[0].id);
+        this.getPostsListById(res[0].id);
       });
     })
       .catch(err => {
@@ -226,11 +226,11 @@ Page({
       });
   },
 
-  getArticlesList: function (data) {
+  getPostsList: function (data) {
     this.setData({
       listLoading: true,
     });
-    API.getArticlesList(data).then(res => {
+    API.getPostsList(data).then(res => {
       let args = {};
       if (res.length < 10) {
         this.setData({
@@ -240,10 +240,10 @@ Page({
         });
       }
       if (this.data.isBottom) {
-        args.articles = [].concat(this.data.articles, res);
+        args.posts = [].concat(this.data.posts, res);
         args.page = this.data.page + 1;
       } else {
-        args.articles = res || [];
+        args.posts = res || [];
         args.page = 1;
       }
       this.setData({
@@ -261,11 +261,11 @@ Page({
       });
   },
 
-  getArticlesListById: function(id) {
+  getPostsListById: function(id) {
     this.setData({
       tabsLoading: true,
     });
-    API.getArticlesList({
+    API.getPostsList({
       categories: id
     }).then(res => {
       this.setData({
@@ -286,7 +286,7 @@ Page({
     this.setData({ 
       activeTab: index
     });
-    // this.getArticlesListById(item.id);
+    // this.getPostsListById(item.id);
   },
 
   onTabChange: function(e) {
@@ -296,7 +296,7 @@ Page({
     this.setData({ 
       activeTab: index 
     });
-    this.getArticlesListById(item.id);
+    this.getPostsListById(item.id);
   },
 
   getAdvert: function () {
@@ -315,7 +315,7 @@ Page({
   bindCateByID: function (e) {
     let id = e.currentTarget.id;
     wx.navigateTo({
-      url: '/pages/articleList/index?id=' + id,
+      url: '/pages/postList/index?id=' + id,
     });
   },
 
@@ -328,14 +328,14 @@ Page({
   bindDetail: function (e) {
     let id = e.currentTarget.id;
     wx.navigateTo({
-      url: '/pages/article/index?id=' + id,
+      url: '/pages/post/index?id=' + id,
     });
   },
 
   onConfirm: function (e) {
     let s = e.detail.value;
     wx.navigateTo({
-      url: '/pages/articleList/index?s=' + s,
+      url: '/pages/postList/index?s=' + s,
     });
   },
 })

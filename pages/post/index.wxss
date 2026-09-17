@@ -1,4 +1,4 @@
-/* pages/article/index.wxss */
+/* pages/post/index.wxss */
 .header-banner {
   position: relative;
   display: block;
@@ -20,7 +20,7 @@
   background: linear-gradient(-45deg, #EC65B7 0%,#6188ef 100%);
 }
 
-.article-detail {
+.post-detail {
   height: calc(100% - 30rpx );
   position: relative;
   background-color: #fff;
@@ -32,18 +32,18 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.article-detail.disable-comment {
+.post-detail.disable-comment {
   margin-bottom: constant(safe-area-inset-bottom);
   margin-bottom: env(safe-area-inset-bottom);
 }
 
-.article-info {
+.post-info {
   padding: 58rpx 0 40rpx;
   margin: 0rpx 24rpx;
   border-radius: 15rpx;
 }
 
-.article-info .title {
+.post-info .title {
   display: block;
   /* text-align: center; */
   font-weight: 700;
@@ -51,52 +51,52 @@
   font-size: 40rpx;
 }
 
-.article-info .meta {
+.post-info .meta {
   margin-top: 30rpx;
   display: flex;
   align-items: center;
 }
 
-.article-info .meta .avator {
+.post-info .meta .avator {
   margin-right: 20rpx;
   width: 40rpx;
   height: 40rpx;
   border-radius: 50%;
 }
 
-.article-info .meta .cuIcon-profile,
-.article-info .meta .cuIcon-qrcode,
-.article-info .meta .cuIcon-time {
+.post-info .meta .cuIcon-profile,
+.post-info .meta .cuIcon-qrcode,
+.post-info .meta .cuIcon-time {
   margin-right: 12rpx;
 }
 
-.article-info .meta .author,
-.article-info .meta .category,
-.article-info .meta .time {
+.post-info .meta .author,
+.post-info .meta .category,
+.post-info .meta .time {
   margin-right: 20rpx;
   font-family: PingFangSC-Regular, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 80%;
   color: #7d7d7d;
 }
 
-.article-info.skeleton .title {
+.post-info.skeleton .title {
   width: 100%;
   height: 40rpx;
   background: #f3f3f3;
 }
 
-.article-info.skeleton .meta .avator {
+.post-info.skeleton .meta .avator {
   background: #f3f3f3;
 }
 
-.article-info.skeleton .meta .category,
-.article-info.skeleton .meta .time {
+.post-info.skeleton .meta .category,
+.post-info.skeleton .meta .time {
   width: 100rpx;
   height: 40rpx;
   background: #f3f3f3;
 }
 
-.article-info.skeleton .meta i {
+.post-info.skeleton .meta i {
   display: inline-block;
   width: 3rpx;
   height: 32rpx;
@@ -133,7 +133,7 @@
   border-radius: 15rpx;
 }
 
-.article-footer {
+.post-footer {
   width: 100%;
   min-height: 85rpx;
   /* position: fixed; */
@@ -149,28 +149,28 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.article-footer .vote-amount,
-.article-footer .all-comments-count {
+.post-footer .vote-amount,
+.post-footer .all-comments-count {
   padding: 0 32rpx;
   font-size: 28rpx;
   color: #ababab;
   line-height: 34rpx;
 }
 
-.article-footer .vote-wrapper {
+.post-footer .vote-wrapper {
   display: flex;
   justify-content: space-between;
   margin-top: 26rpx;
   padding: 0 32rpx;
 }
 
-.article-footer .vote-share {
+.post-footer .vote-share {
   margin: 14rpx 32rpx 14rpx 32rpx;
   font-size: 28rpx;
   font-weight: bold;
 }
 
-.article-footer .editor {
+.post-footer .editor {
   margin: 48rpx 32rpx 64rpx;
   font-size: 28rpx;
   font-weight: normal;
@@ -179,7 +179,7 @@
 }
 
 /* comments */
-.article-footer .comment-counts {
+.post-footer .comment-counts {
   font-size: 28rpx;
   font-weight: normal;
   color: #00abff;
@@ -187,7 +187,7 @@
   line-height: 30rpx;
 }
 
-.article-footer .all-comments {
+.post-footer .all-comments {
   position: relative;
   padding: 8rpx 32rpx;
   font-size: 24rpx;
@@ -196,12 +196,12 @@
   line-height: 34rpx;
 }
 
-.article-footer .all-comments .all-comments-btn {
+.post-footer .all-comments .all-comments-btn {
   position: absolute;
   right: 32rpx;
 }
 
-.article-footer .comments-title {
+.post-footer .comments-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -210,7 +210,7 @@
   font-size: 32rpx;
 }
 
-.article-footer .comments-title::before {
+.post-footer .comments-title::before {
   transform: scale(0.6);
   position: absolute;
   top: 0;
@@ -221,16 +221,16 @@
   content: "";
 }
 
-.article-footer .comments-wrapper {
+.post-footer .comments-wrapper {
   padding: 0 0 64rpx;
 }
 
-.article-footer .comments-wrapper .comment-item {
+.post-footer .comments-wrapper .comment-item {
   margin: 0;
   border-bottom: 1rpx solid rgba(230, 230, 230, 0.8);
 }
 
-.article-footer .comments-wrapper .comment-share {
+.post-footer .comments-wrapper .comment-share {
   padding: 32rpx;
   font-size: 28rpx;
   font-weight: normal;
@@ -239,16 +239,16 @@
   text-align: center;
 }
 
-.article-footer .comment-list {
+.post-footer .comment-list {
   padding: 0 0 24rpx;
 }
 
-.article-footer .comment-list .comment-item {
+.post-footer .comment-list .comment-item {
   margin: 0;
   border-bottom: 1rpx solid rgba(230, 230, 230, 0.8);
 }
 
-.article-footer.prevent-scroll {
+.post-footer.prevent-scroll {
   height: 100%;
   overflow: hidden;
 }
@@ -384,7 +384,7 @@
 }
 
 /* topic */
-.article-comment {
+.post-comment {
   position: relative;
   max-height: 50%;
   background-color: #fff;
@@ -395,18 +395,18 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.article-comment.enable {
+.post-comment.enable {
   margin-bottom: constant(safe-area-inset-bottom);
   margin-bottom: env(safe-area-inset-bottom);
 }
 
-.article-comment .topic-wrapper {
+.post-comment .topic-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.article-comment .topic-wrapper .topic-title {
+.post-comment .topic-wrapper .topic-title {
   margin-top: 40rpx;
   padding: 0 32rpx;
   font-size: 44rpx;
@@ -415,7 +415,7 @@
   line-height: 52rpx;
 }
 
-.article-comment .topic-wrapper .onlooker-amount {
+.post-comment .topic-wrapper .onlooker-amount {
   position: relative;
   margin-top: 40rpx;
   margin-right: 1.4em;
@@ -428,13 +428,13 @@
   color: #fff;
 }
 
-article-comment .topic-wrapper .onlooker-amount .onlooker-arrow {
+post-comment .topic-wrapper .onlooker-amount .onlooker-arrow {
   animation: infinite-move 0.8s linear infinite alternate;
   display: inline-block;
   margin: 0 8rpx;
 }
 
-.article-comment.disable  {
+.post-comment.disable  {
   display: none;
 }
 
@@ -450,7 +450,7 @@ article-comment .topic-wrapper .onlooker-amount .onlooker-arrow {
   font-size: 90%;
 }
 
-.article-fav-like-share {
+.post-fav-like-share {
 
 }
 

@@ -1,4 +1,4 @@
-// pages/article/index.js
+// pages/post/index.js
 /**
  * Author: Lyove
  */
@@ -34,7 +34,7 @@ Page({
     this.setData({ 
       options: options 
     });
-    this.getArticleByID(options.id);
+    this.getPostByID(options.id);
     this.getAdvert();
   },
 
@@ -79,7 +79,7 @@ Page({
     this.setData({
       commentsPage: 1
     });
-    this.getArticleByID(this.data.options.id);
+    this.getPostByID(this.data.options.id);
     this.getComments({
       id: this.data.options.id,
       page: this.data.commentsPage
@@ -104,14 +104,14 @@ Page({
   onShareAppMessage: function () {
     return {
       title: this.data.detail.title.rendered,
-      path: '/pages/article/index?id=' + this.data.detail.id,
+      path: '/pages/post/index?id=' + this.data.detail.id,
       imageUrl: this.data.detail.meta.thumbnail
     };
   },
 
-  getArticleByID: function (id) {
+  getPostByID: function (id) {
     let _this = this;
-    API.getArticleByID(id).then(res => {
+    API.getPostByID(id).then(res => {
       _this.setData({
         id: id,
         detail: {
@@ -137,7 +137,7 @@ Page({
   },
 
   /**
-   * Split the article body into render parts: plain HTML (rendered by mp-html)
+   * Split the post body into render parts: plain HTML (rendered by mp-html)
    * and embedded SSML blocks (rendered by ssml-viewer), mirroring the Aine
    * frontend SsmlContent component.
    */
@@ -529,7 +529,7 @@ Page({
                     prefixPath = response.tempFilePath;
                     console.log("文章图片本地位置：" + response.tempFilePath);
                     if (prefixPath && qrcodePath) {
-                      _this.createArticlePrefix(prefixPath, qrcodePath, title, excerpt);
+                      _this.createPostPrefix(prefixPath, qrcodePath, title, excerpt);
                     }
                   } else {
                     wx.hideLoading();
@@ -569,7 +569,7 @@ Page({
     })
   },
   // Convert canvas to an image and save it locally, then pass the path to the image's src
-  createArticlePrefix: function (prefixPath, qrcodePath, title, excerpt) {
+  createPostPrefix: function (prefixPath, qrcodePath, title, excerpt) {
     wx.showLoading({
       title: "正在生成海报",
       mask: true,
@@ -594,7 +594,7 @@ Page({
     context.setTextAlign('left');
     context.fillText("阅读详情,请长按识别二维码", 240, 880);
     context.setFillStyle("#000000");
-    this.CanvasTextContent(context, textTitle, textExcerpt);// Article title
+    this.CanvasTextContent(context, textTitle, textExcerpt);// Post title
     context.draw();
     // Save the generated image locally; delay a while because drawing takes time
     setTimeout(function () {

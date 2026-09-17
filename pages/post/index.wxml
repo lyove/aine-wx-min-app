@@ -1,4 +1,4 @@
-<!--pages/article/index.wxml-->
+<!--pages/post/index.wxml-->
 <topbar bgColor="bg-gradual-blue" isBack="{{true}}">
   <!-- <view slot="backText">Back</view> -->
   <view slot="content">文章详情</view>
@@ -7,8 +7,8 @@
   <image wx:if="{{detail.meta.thumbnail}}" class='header-image' src='{{detail.meta.thumbnail}}' mode="widthFix"></image>
   <view wx:else class="header-image-none"></view>
 </view>
-<view class="article-detail {{enableComment ? '' : 'disable-comment'}}">
-  <view wx:if="{{detail}}" class="article-info">
+<view class="post-detail {{enableComment ? '' : 'disable-comment'}}">
+  <view wx:if="{{detail}}" class="post-info">
     <text class="title">{{detail.title.rendered}}</text>
     <view class="meta">
       <text class="cuIcon-profile"></text>
@@ -19,7 +19,7 @@
       <text class="time">{{detail.date}}</text>
     </view>
   </view>
-  <view wx:else class="article-info skeleton">
+  <view wx:else class="post-info skeleton">
     <view class="title"></view>
     <view class="meta">
       <text class="avator"></text>
@@ -41,7 +41,7 @@
     <view class="skeleton-rect"></view>
   </view>
 </view>
-<view class="article-comment {{enableComment ? 'enable' : 'disable'}}">
+<view class="post-comment {{enableComment ? 'enable' : 'disable'}}">
   <view class="topic-wrapper" id="comment">
     <view class="topic-title">话题讨论</view>
     <view class="onlooker-amount relative">
@@ -124,11 +124,11 @@
     </view>
   </view>
 </view>
-<view class="article-footer">
+<view class="post-footer">
   <view wx:if="{{advert.type === 'unit'}}" class="advert">
     <ad unit-id="{{advert.code}}"></ad>
   </view>
-  <view class="article-fav-like-share">
+  <view class="post-fav-like-share">
     <form wx:if="{{!showTextarea}}" catchsubmit="formSubmit" report-submit="true">
       <view class="bottom-bar">
         <view class="bottom-bar-btn">

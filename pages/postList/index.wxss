@@ -1,4 +1,4 @@
-/* pages/articleList/index.wxss */
+/* pages/postList/index.wxss */
 page::-webkit-scrollbar {
   display: none;
 }
@@ -64,13 +64,13 @@ page::-webkit-scrollbar {
   align-items: center;
 }
 
-.list_article_box {
+.list_post_box {
   margin-bottom: 38rpx;
   padding-bottom: 38rpx;
   border-bottom: 1px dotted #c5c5c5;
 }
 
-.list_article_figure {
+.list_post_figure {
   position: relative;
   display: block;
   width: 100%;
@@ -80,17 +80,17 @@ page::-webkit-scrollbar {
   overflow: hidden;
 }
 
-.list_article_cover {
+.list_post_cover {
   width: 100%;
   height: 380rpx;
   border-radius: 15rpx;
 }
 
-.list_article {
+.list_post {
   margin-bottom: 36rpx;
 }
 
-.list_article_title {
+.list_post_title {
   width: 100%;
   font-size: 110%;
   font-weight: 500;
@@ -102,7 +102,7 @@ page::-webkit-scrollbar {
   white-space: nowrap;
 }
 
-.list_article_desc {
+.list_post_desc {
   color: #888888;
   margin-top: 16rpx;
   font-size: 95%;
@@ -114,7 +114,7 @@ page::-webkit-scrollbar {
   overflow: hidden;
 }
 
-.list_article_category {
+.list_post_category {
   position: absolute;
   bottom: 24rpx;
   left: 24rpx;
@@ -127,12 +127,12 @@ page::-webkit-scrollbar {
   text-align: center;
 }
 
-.list_article_category text {
+.list_post_category text {
   font-size: 80%;
   color: #fff;
 }
 
-.list_article_null {
+.list_post_null {
   position: relative;
   height: 380rpx
 }

@@ -4,8 +4,8 @@
     "pages/category/index",
     "pages/pagesList/index",
     "pages/page/index",
-    "pages/articleList/index",
-    "pages/article/index",
+    "pages/postList/index",
+    "pages/post/index",
     "pages/userProfile/index"
   ],
   "lazyCodeLoading": "requiredComponents",

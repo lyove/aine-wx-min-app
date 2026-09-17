@@ -1,16 +1,18 @@
 /**
  * Author: Lyove
- * Description: Aine Mini Program API layer -- adapted to Aine CMS backend
+ * Description: Aine Mini Program API layer -- adapted to Aine (laravel-aine-master) backend
  *      Backend endpoints: GET /api/project/{project_identifier}/... (response { success, code, message, data })
  *      Data is normalized here to the structure pages expect; page code stays unchanged from the original framework
  */
 
 import API from './base';
 
-// ==================== Aine CMS Configuration ====================
-// Project identifier (slug or UUID), viewable in Admin -> Project Settings -> API Settings; demo project is cms
-const PROJECT_IDENTIFIER = 'cms';
-// Articles per page
+// ==================== Aine Configuration ====================
+// Project identifier (slug or UUID), viewable in Admin -> Project Settings -> API Settings;
+const PROJECT_IDENTIFIER = 'note';
+// Collection slug for posts
+const POSTS_SLUG = 'posts';
+// Posts per page
 const LIMIT = 10;
 
 // ==================== Data Normalization ====================
@@ -18,7 +20,7 @@ const LIMIT = 10;
 /**
  * Content object -> structure used by pages (title.rendered / excerpt.rendered / meta.thumbnail etc.)
  */
-function normalizeArticle(item) {
+function normalizePost(item) {
 	if (!item || typeof item !== 'object') {
     return item;
   }
@@ -63,7 +65,7 @@ function normalizeCategory(item) {
  * Page object (pages list uses the description field)
  */
 function normalizePage(item) {
-	const page = normalizeArticle(item);
+	const page = normalizePost(item);
 	page.description = item.description || item.excerpt || '';
 	return page;
 }
@@ -86,18 +88,18 @@ const BOOLEAN_FILTERS = {
 
 /**
  * Site info
- * GET /api/project/cms
+ * GET /api/project/note
  */
 const getSiteInfo = function () {
 	return API.get(`/api/project/${PROJECT_IDENTIFIER}`);
 }
 
 /**
- * Article list
- * GET /api/project/cms/articles
+ * Post list
+ * GET /api/project/note/posts
  * Supports category filter (filters.category.id) and search (/search)
  */
-const getArticlesList = function (type, data) {
+const getPostsList = function (type, data) {
 	if (type && typeof type === 'object') {
 		data = type;
 		type = undefined;
@@ -111,16 +113,16 @@ const getArticlesList = function (type, data) {
 
 	// Search
 	if (type === 'search' || data.search) {
-		return API.get(`/api/project/${PROJECT_IDENTIFIER}/articles/search`, {
+		return API.get(`/api/project/${PROJECT_IDENTIFIER}/${POSTS_SLUG}/search`, {
 			query: data.search,
 			limit: LIMIT,
 			offset: ((data.page || 1) - 1) * LIMIT
-		}).then(list => (list || []).map(normalizeArticle));
+		}).then(list => (list || []).map(normalizePost));
 	}
 
 	// Sticky / carousel -> portal.slider
 	if (type === 'sticky') {
-		return getStickyArticles();
+		return getStickyPosts();
 	}
 
 	// Category filter
@@ -134,79 +136,79 @@ const getArticlesList = function (type, data) {
 		filter += `&filters.${BOOLEAN_FILTERS[type]}=1`;
 	}
 
-	return API.get(`/api/project/${PROJECT_IDENTIFIER}/articles?sort=published_at:desc&timestamps=true&${buildPagination(data)}${filter}`)
-		.then(list => (list || []).map(normalizeArticle));
+	return API.get(`/api/project/${PROJECT_IDENTIFIER}/${POSTS_SLUG}?sort=published_at:desc&timestamps=true&${buildPagination(data)}${filter}`)
+		.then(list => (list || []).map(normalizePost));
 }
 
 /**
- * Sticky articles (homepage carousel) -> GET /api/project/cms/portal -> data.slider
+ * Sticky posts (homepage carousel) -> GET /api/project/note/portal?collection=posts -> data.slider
  */
-const getStickyArticles = function () {
-	return API.get(`/api/project/${PROJECT_IDENTIFIER}/portal`).then(portal => {
-		return ((portal && portal.slider) || []).map(normalizeArticle);
+const getStickyPosts = function () {
+	return API.get(`/api/project/${PROJECT_IDENTIFIER}/portal?collection=${POSTS_SLUG}`).then(portal => {
+		return ((portal && portal.slider) || []).map(normalizePost);
 	});
 }
 
 /**
- * Random articles (no backend endpoint yet; returns the latest list)
+ * Random posts (no backend endpoint yet; returns the latest list)
  */
-const getRandArticles = function () {
-	return getArticlesList();
+const getRandPosts = function () {
+	return getPostsList();
 }
 
 /**
- * Related articles (no backend endpoint yet; returns the latest list)
+ * Related posts (no backend endpoint yet; returns the latest list)
  */
-const getRelatedArticles = function () {
-	return getArticlesList();
+const getRelatedPosts = function () {
+	return getPostsList();
 }
 
 /**
  * Most viewed (no backend endpoint yet; returns the latest list)
  */
-const getMostViewsArticles = function () {
-	return getArticlesList();
+const getMostViewsPosts = function () {
+	return getPostsList();
 }
 
 /**
  * Most favorited (no backend endpoint yet; returns the latest list)
  */
-const getMostFavArticles = function () {
-	return getArticlesList();
+const getMostFavPosts = function () {
+	return getPostsList();
 }
 
 /**
  * Most liked (no backend endpoint yet; returns the latest list)
  */
-const getMostLikeArticles = function () {
-	return getArticlesList();
+const getMostLikePosts = function () {
+	return getPostsList();
 }
 
 /**
  * Most commented (no backend endpoint yet; returns the latest list)
  */
-const getMostCommentArticles = function () {
-	return getArticlesList();
+const getMostCommentPosts = function () {
+	return getPostsList();
 }
 
 /**
  * Recent comments (no backend endpoint yet; returns the latest list)
  */
-const getRecentCommentArticles = function () {
-	return getArticlesList();
+const getRecentCommentPosts = function () {
+	return getPostsList();
 }
 
 /**
- * Article detail
- * GET /api/project/cms/articles/{id}
+ * Post detail
+ * GET /api/project/note/posts/{id}
  */
-const getArticleByID = function (id) {
-	return API.get(`/api/project/${PROJECT_IDENTIFIER}/articles/${id}?timestamps=true`).then(res => normalizeArticle(res));
+const getPostByID = function (id) {
+	return API.get(`/api/project/${PROJECT_IDENTIFIER}/${POSTS_SLUG}/${id}?timestamps=true`).then(res => normalizePost(res));
 }
 
 /**
  * Page list
- * GET /api/project/cms/pages
+ * GET /api/project/note/pages
  */
 const getPagesList = function () {
 	return API.get(`/api/project/${PROJECT_IDENTIFIER}/pages?timestamps=true`).then(list => (list || []).map(normalizePage));
@@ -214,15 +216,15 @@ const getPagesList = function () {
 
 /**
  * Page detail
- * GET /api/project/cms/pages/{id}
+ * GET /api/project/note/pages/{id}
  */
 const getPageByID = function (id) {
-	return API.get(`/api/project/${PROJECT_IDENTIFIER}/pages/${id}?timestamps=true`).then(res => normalizeArticle(res));
+	return API.get(`/api/project/${PROJECT_IDENTIFIER}/pages/${id}?timestamps=true`).then(res => normalizePost(res));
 }
 
 /**
  * Category list
- * GET /api/project/cms/categories
+ * GET /api/project/note/categories
  */
 const getCategories = function () {
 	return API.get(`/api/project/${PROJECT_IDENTIFIER}/categories`).then(list => (list || []).map(normalizeCategory));
@@ -230,7 +232,7 @@ const getCategories = function () {
 
 /**
  * Category detail
- * GET /api/project/cms/categories/{id}
+ * GET /api/project/note/categories/{id}
  */
 const getCategoryByID = function (id) {
 	return API.get(`/api/project/${PROJECT_IDENTIFIER}/categories/${id}`).then(res => normalizeCategory(res));
@@ -258,14 +260,14 @@ const getComments = function () {
 }
 
 /**
- * Favorite article (backend not ready; under development)
+ * Favorite post (backend not ready; under development)
  */
 const setFavComments = function () {
 	return Promise.reject(new Error('功能开发中'));
 }
 
 /**
- * Like article (backend not ready; under development)
+ * Like post (backend not ready; under development)
  */
 const setLikeComments = function () {
 	return Promise.reject(new Error('功能开发中'));
@@ -288,21 +290,21 @@ const markComment = function () {
 /**
  * User favorites list (no user system yet; returns empty)
  */
-const getUserFavArticles = function () {
+const getUserFavPosts = function () {
 	return Promise.resolve([]);
 }
 
 /**
  * User likes list (no user system yet; returns empty)
  */
-const getUserLikeArticles = function () {
+const getUserLikePosts = function () {
 	return Promise.resolve([]);
 }
 
 /**
  * User comments list (no user system yet; returns empty)
  */
-const getUserCommentsArticles = function () {
+const getUserCommentsPosts = function () {
 	return Promise.resolve([]);
 }
 
@@ -346,7 +348,7 @@ const pageAdsense = function () {
 /**
  * Tweet list (not provided by backend; returns empty)
  */
-const getTwitterArticles = function () {
+const getTwitterPosts = function () {
 	return Promise.resolve([]);
 }
 
@@ -367,28 +369,28 @@ const Loginout = function () {
 // ==================== Exports ====================
 
 API.getSiteInfo = getSiteInfo;
-API.getStickyArticles = getStickyArticles;
-API.getArticlesList = getArticlesList;
-API.getArticleByID = getArticleByID;
+API.getStickyPosts = getStickyPosts;
+API.getPostsList = getPostsList;
+API.getPostByID = getPostByID;
 API.getPagesList = getPagesList;
 API.getPageByID = getPageByID;
 API.getCategories = getCategories;
 API.getCategoryByID = getCategoryByID;
 API.getTags = getTags;
 API.getTagByID = getTagByID;
-API.getRandArticles = getRandArticles;
-API.getRelatedArticles = getRelatedArticles;
-API.getMostViewsArticles = getMostViewsArticles;
-API.getMostFavArticles = getMostFavArticles;
-API.getMostLikeArticles = getMostLikeArticles;
-API.getMostCommentArticles = getMostCommentArticles;
-API.getRecentCommentArticles = getRecentCommentArticles;
+API.getRandPosts = getRandPosts;
+API.getRelatedPosts = getRelatedPosts;
+API.getMostViewsPosts = getMostViewsPosts;
+API.getMostFavPosts = getMostFavPosts;
+API.getMostLikePosts = getMostLikePosts;
+API.getMostCommentPosts = getMostCommentPosts;
+API.getRecentCommentPosts = getRecentCommentPosts;
 API.getComments = getComments;
 API.setFavComments = API.guard(setFavComments);
 API.setLikeComments = API.guard(setLikeComments);
-API.getUserFavArticles = API.guard(getUserFavArticles);
-API.getUserLikeArticles = API.guard(getUserLikeArticles);
-API.getUserCommentsArticles = API.guard(getUserCommentsArticles);
+API.getUserFavPosts = API.guard(getUserFavPosts);
+API.getUserLikePosts = API.guard(getUserLikePosts);
+API.getUserCommentsPosts = API.guard(getUserCommentsPosts);
 API.addComment = API.guard(addComment);
 API.subscribeMessage = API.guard(subscribeMessage);
 API.getCodeImg = getCodeImg;
@@ -398,7 +400,7 @@ API.indexAdsense = indexAdsense;
 API.listAdsense = listAdsense;
 API.detailAdsense = detailAdsense;
 API.pageAdsense = pageAdsense;
-API.getTwitterArticles = getTwitterArticles;
+API.getTwitterPosts = getTwitterPosts;
 API.getTwitterDetail = getTwitterDetail;
 API.markComment = API.guard(markComment);
 

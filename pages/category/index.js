@@ -174,7 +174,7 @@ Page({
   bindCateByID: function (e) {
     let id = e.currentTarget.id;
     wx.navigateTo({
-      url: '/pages/articleList/index?id=' + id,
+      url: '/pages/postList/index?id=' + id,
     });
   }
 })

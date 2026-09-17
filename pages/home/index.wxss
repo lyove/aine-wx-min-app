@@ -95,20 +95,20 @@ page {
   text-align: center;
 }
 
-.feature_article_figures {
+.feature_post_figures {
   position: relative;
   display: block;
   width: 100%;
   max-height: 56.25vh;
 }
 
-.feature_article_figure_cover {
+.feature_post_figure_cover {
   width: 100%;
   height: 380rpx;
   border-radius: 15rpx;
 }
 
-.feature_article_figure_title {
+.feature_post_figure_title {
   position: absolute;
   bottom: 50rpx;
   left: 0;
@@ -116,7 +116,7 @@ page {
   text-align: center;
 }
 
-.feature_article_figure_title text {
+.feature_post_figure_title text {
   display: inline-block;
   max-width: 160px;
   line-height: 40rpx;
@@ -522,21 +522,21 @@ page {
   height: 24rpx;
 }
 
-.latest_article_box {
+.latest_post_box {
   position: relative;
   overflow: hidden;
 }
 
-.latest_article {
+.latest_post {
   position: relative;
   margin-top: 36rpx;
 }
 
-.latest_article > .advert {
+.latest_post > .advert {
   margin: 24rpx;
 }
 
-.latest_article_figure {
+.latest_post_figure {
   position: relative;
   display: block;
   width: 100%;
@@ -546,13 +546,13 @@ page {
   overflow: hidden;
 }
 
-.latest_article_figure_cover {
+.latest_post_figure_cover {
   width: 100%;
   height: 380rpx;
   border-radius: 15rpx;
 }
 
-.latest_article_figure_title {
+.latest_post_figure_title {
   position: absolute;
   bottom: 50rpx;
   left: 0;
@@ -560,7 +560,7 @@ page {
   text-align: center;
 }
 
-.latest_article_figure_title text {
+.latest_post_figure_title text {
   display: inline-block;
   max-width: 160px;
   line-height: 40rpx;
@@ -575,13 +575,13 @@ page {
   overflow: hidden;
 }
 
-.latest_article_cover {
+.latest_post_cover {
   width: 100%;
   height: 380rpx;
   border-radius: 15rpx;
 }
 
-.latest_article_title {
+.latest_post_title {
   width: 100%;
   font-size: 110%;
   font-weight: 500;
@@ -593,7 +593,7 @@ page {
   white-space: nowrap;
 }
 
-.latest_article_desc {
+.latest_post_desc {
   color: #888888;
   margin: 16rpx 0;
   font-size: 95%;
@@ -605,7 +605,7 @@ page {
   overflow: hidden;
 }
 
-.latest_article_category {
+.latest_post_category {
   position: absolute;
   bottom: 24rpx;
   left: 24rpx;
@@ -618,12 +618,12 @@ page {
   text-align: center;
 }
 
-.latest_article_category text {
+.latest_post_category text {
   font-size: 80%;
   color: #fff;
 }
 
-.article-separator {
+.post-separator {
   position: relative;
   display: block;
   width: calc(100% - 1rem);
@@ -633,8 +633,8 @@ page {
   background: linear-gradient( to left, #c0c0c0 calc(50% - 16px), transparent calc(50% - 16px), transparent calc(50% + 16px), #c0c0c0 calc(50% + 16px) );
 }
 
-.article-separator .before,
-.article-separator .after {
+.post-separator .before,
+.post-separator .after {
   background: #c0c0c0;
   display: block;
   width: 1px;
@@ -643,10 +643,10 @@ page {
   top: calc(50% - 0.3rem);
   transform: rotate(22.5deg);
 }
-.article-separator .before {
+.post-separator .before {
   left: calc(50% - 0.4rem);
 }
-.article-separator .after {
+.post-separator .after {
   right: calc(50% - 0.4rem);
 }
 

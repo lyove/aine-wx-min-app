@@ -5,8 +5,8 @@
 ## 当前状态
 
 - **接口域名**：`https://api.lyove.com`（`utils/base.js` 的 `API_HOST`）
-- **后端**：同目录 `laravel-aine-master`（Aine CMS，Laravel + Vue）线上部署，项目标识符 `cms`
-- **接口适配**：`utils/api.js` 已全部切换到 Aine CMS 接口（`/api/project/cms/...`），并将响应标准化为页面使用的结构，页面代码保持原框架不变
+- **后端**：同目录 `laravel-aine-master`（Aine CMS，Laravel + Vue）线上部署，项目标识符 `note`
+- **接口适配**：`utils/api.js` 已全部切换到 Aine CMS 接口（`/api/project/note/...`），并将响应标准化为页面使用的结构，页面代码保持原框架不变
 - **首页 / 栏目 / 列表 / 详情页**：已对接真实接口，可展示文章、分类、搜索、页面内容
 - **登录页（我的）**：
   - 账户登录界面完整保留（顶部栏头像登录入口 + "我的"页登录/登出/清除缓存）
@@ -14,20 +14,20 @@
 
 ## 接口适配对照
 
-后端接口前缀：`https://api.lyove.com/api/project/cms`（`cms` 为项目标识符，可在后台「项目设置 → API Settings」查看，支持 slug 或 UUID）
+后端接口前缀：`https://api.lyove.com/api/project/note`（`note` 为项目标识符，可在后台「项目设置 → API Settings」查看，支持 slug 或 UUID）
 
 | 页面调用（原框架） | Aine CMS 实际接口 |
 | --- | --- |
-| 站点信息 `getSiteInfo` | `GET /api/project/cms`（返回 name / description） |
-| 文章列表 `getArticlesList` | `GET /api/project/cms/articles?sort=published_at:desc&limit=10&offset=0&timestamps=true` |
+| 站点信息 `getSiteInfo` | `GET /api/project/note`（返回 name / description） |
+| 文章列表 `getPostsList` | `GET /api/project/note/posts?sort=published_at:desc&limit=10&offset=0&timestamps=true` |
 | 分类过滤 | 追加 `&filters.category.id={分类id}`（关联过滤） |
-| 搜索 | `GET /api/project/cms/articles/search?query={关键词}&limit=10&offset=0` |
-| 首页轮播 `getStickyArticles` | `GET /api/project/cms/portal` → `data.slider` |
-| 文章详情 `getArticleByID` | `GET /api/project/cms/articles/{id}?timestamps=true` |
-| 分类列表 `getCategories` | `GET /api/project/cms/categories` |
-| 分类详情 `getCategoryByID` | `GET /api/project/cms/categories/{id}` |
-| 页面列表 `getPagesList` | `GET /api/project/cms/pages?timestamps=true` |
-| 页面详情 `getPageByID` | `GET /api/project/cms/pages/{id}?timestamps=true` |
+| 搜索 | `GET /api/project/note/posts/search?query={关键词}&limit=10&offset=0` |
+| 首页轮播 `getStickyPosts` | `GET /api/project/note/portal?collection=posts` → `data.slider` |
+| 文章详情 `getPostByID` | `GET /api/project/note/posts/{id}?timestamps=true` |
+| 分类列表 `getCategories` | `GET /api/project/note/categories` |
+| 分类详情 `getCategoryByID` | `GET /api/project/note/categories/{id}` |
+| 页面列表 `getPagesList` | `GET /api/project/note/pages?timestamps=true` |
+| 页面详情 `getPageByID` | `GET /api/project/note/pages/{id}?timestamps=true` |
 
 ### 数据标准化（utils/api.js 内）
 
@@ -48,8 +48,8 @@
 | --- | --- | --- |
 | 首页 | `pages/home/index` | 已对接接口 |
 | 栏目 | `pages/category/index` | 已对接接口 |
-| 文章列表 | `pages/articleList/index` | 已对接接口 |
-| 文章详情 | `pages/article/index` | 已对接接口 |
+| 文章列表 | `pages/postList/index` | 已对接接口 |
+| 文章详情 | `pages/post/index` | 已对接接口 |
 | 页面列表 | `pages/pagesList/index` | 已对接接口 |
 | 页面详情 | `pages/page/index` | 已对接接口 |
 | 我的（登录） | `pages/userProfile/index` | 登录界面保留，业务功能待开发 |

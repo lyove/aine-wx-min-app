@@ -27,15 +27,15 @@
 
   <!-- Feature -->
   <view class="feature">
-    <view wx:if="{{stickyLoading && stickyArticle.length === 0}}" class="skeleton">
+    <view wx:if="{{stickyLoading && stickyPost.length === 0}}" class="skeleton">
       <view class="skeleton-rect"></view>
     </view>
     <swiper wx:else class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true"
       interval="5000" duration="500">
-      <swiper-item class="feature_article_figures" id="{{item.id}}" bindtap="bindDetail" id="{{item.id}}"
-        wx:for="{{stickyArticle}}" wx:for-index="i" wx:key="id">
-        <image class='feature_article_figure_cover' src="{{item.meta.thumbnail}}" mode="aspectFill"></image>
-        <view class="feature_article_figure_title">
+      <swiper-item class="feature_post_figures" id="{{item.id}}" bindtap="bindDetail" id="{{item.id}}"
+        wx:for="{{stickyPost}}" wx:for-index="i" wx:key="id">
+        <image class='feature_post_figure_cover' src="{{item.meta.thumbnail}}" mode="aspectFill"></image>
+        <view class="feature_post_figure_title">
           <text>{{item.title.rendered}}</text>
         </view>
       </swiper-item>
@@ -44,7 +44,7 @@
 
   <!-- Portfolio -->
   <view class="portfolio">
-    <view wx:if="{{stickyLoading && stickyArticle.length === 0}}" class="skeleton cu-list grid col-4 no-border">
+    <view wx:if="{{stickyLoading && stickyPost.length === 0}}" class="skeleton cu-list grid col-4 no-border">
       <view class="cu-item">
         <view class="skeleton-circle"></view>
       </view>
@@ -59,7 +59,7 @@
       </view>
     </view>
     <view wx:else class="cu-list grid col-4 no-border">
-      <view class="cu-item" bindtap="bindHotArticles">
+      <view class="cu-item" bindtap="bindHotPosts">
         <view class="bg-img bg-imgz">
           <image src="../../images/portfolio-icon-hot.png"></image>
         </view>
@@ -71,7 +71,7 @@
         </view>
         <text>推荐</text>
       </view>
-      <view class="cu-item" bindtap="bindSliderArticles">
+      <view class="cu-item" bindtap="bindSliderPosts">
         <view class="bg-img bg-imgh">
           <image src="../../images/portfolio-icon-news.png"></image>
         </view>
@@ -144,7 +144,7 @@
 
   <!-- Latest -->
   <view class="latest">
-    <view wx:if="{{listLoading == true && articles.length === 0}}" class="skeleton">
+    <view wx:if="{{listLoading == true && posts.length === 0}}" class="skeleton">
       <view class="skeleton-label">
         <view class="skeleton-label-title"></view>
         <view class="skeleton-label-cat"></view>
@@ -155,8 +155,8 @@
       <view class="skeleton-rect"></view>
     </view>
     <view wx:else class="latest_wrap">
-      <view wx:if="{{articles.length > 0}}" class="latest_label">
-        <view class="latest_label_title">为你精选</view>
+      <view wx:if="{{posts.length > 0}}" class="latest_label">
+        <view class="latest_label_title">精选</view>
         <view class="latest_label_more">
           <view bindtap="bindCateByID" class="category" id="{{item.id}}" wx:for="{{category}}" wx:key="item">
             {{item.name}}
@@ -165,19 +165,19 @@
         </view>
         <view class="latest_label_bg"></view>
       </view>
-      <view wx:if="{{articles.length > 0}}" class="latest_article">
-        <block wx:for="{{articles}}" wx:for-index="i" wx:key="id">
-          <view bindtap="bindDetail" class="latest_article_box" id="{{item.id}}">
-            <view class="latest_article_figure">
-              <image mode="aspectFill" class="latest_article_cover"
+      <view wx:if="{{posts.length > 0}}" class="latest_post">
+        <block wx:for="{{posts}}" wx:for-index="i" wx:key="id">
+          <view bindtap="bindDetail" class="latest_post_box" id="{{item.id}}">
+            <view class="latest_post_figure">
+              <image mode="aspectFill" class="latest_post_cover"
                 src="{{item.meta.thumbnail || '/images/default_thumb.png'}}"></image>
-              <view class="latest_article_category">
+              <view class="latest_post_category">
                 <text>{{item.category[0].name}}</text>
               </view>
             </view>
-            <view class="latest_article_title">{{item.title.rendered}}</view>
-            <view class="latest_article_desc">{{item.excerpt.rendered}}</view>
-            <span class="article-separator">
+            <view class="latest_post_title">{{item.title.rendered}}</view>
+            <view class="latest_post_desc">{{item.excerpt.rendered}}</view>
+            <span class="post-separator">
               <i class="before"></i>
               <i class="after"></i>
             </span>
@@ -189,8 +189,8 @@
           </block>
         </block>
       </view>
-      <view wx:if="{{isLastPage&&articles.length > 0}}" class="last_text">已经到底啦~</view>
-      <view wx:if="{{!isLastPage&&articles.length > 0}}" class="last_text">努力加载中...</view>
+      <view wx:if="{{isLastPage&&posts.length > 0}}" class="last_text">已经到底啦~</view>
+      <view wx:if="{{!isLastPage&&posts.length > 0}}" class="last_text">努力加载中...</view>
     </view>
   </view>
 </view>

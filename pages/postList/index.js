@@ -1,77 +1,77 @@
 /**
  * Author: Lyove
  */
-// pages/articleList/index.js
+// pages/postList/index.js
 import API from '../../utils/api';
 
 const requestType = {
   all: {
     title: '列表',
-    api: 'getArticlesList'
+    api: 'getPostsList'
   },
   id: {
     title: '',
-    api: 'getArticlesList'
+    api: 'getPostsList'
   },
   search: {
     title: '',
-    api: 'getArticlesList'
+    api: 'getPostsList'
   },
   sticky: {
     title: '置顶文章',
-    api: 'getStickyArticles'
+    api: 'getStickyPosts'
   },
   featured: {
     title: 'Featured',
-    api: 'getArticlesList'
+    api: 'getPostsList'
   },
   recommended: {
     title: 'Recommended',
-    api: 'getArticlesList'
+    api: 'getPostsList'
   },
   slider: {
     title: 'Slider',
-    api: 'getArticlesList'
+    api: 'getPostsList'
   },
   rand: {
     title: '随机文章',
-    api: 'getRandArticles'
+    api: 'getRandPosts'
   },
   related: {
     title: '相关文章',
-    api: 'getRelatedArticles'
+    api: 'getRelatedPosts'
   },
   mostViews: {
     title: '热门阅读',
-    api: 'getMostViewsArticles'
+    api: 'getMostViewsPosts'
   },
   mostFav: {
     title: '热门收藏',
-    api: 'getMostFavArticles'
+    api: 'getMostFavPosts'
   },
   mostLike: {
     title: '热门点赞',
-    api: 'getMostLikeArticles'
+    api: 'getMostLikePosts'
   },
   mostComment: {
     title: '热门评论',
-    api: 'getMostCommentArticles'
+    api: 'getMostCommentPosts'
   },
   recentComment: {
     title: '最新评论',
-    api: 'getRecentCommentArticles'
+    api: 'getRecentCommentPosts'
   },
   userFav: {
     title: '我的收藏',
-    api: 'getUserFavArticles'
+    api: 'getUserFavPosts'
   },
   userLike: {
     title: '我的点赞',
-    api: 'getUserLikeArticles'
+    api: 'getUserLikePosts'
   },
   userComments: {
     title: '我的评论',
-    api: 'getUserCommentsArticles'
+    api: 'getUserCommentsPosts'
   }
 };
 
@@ -85,7 +85,7 @@ Page({
     siteInfo: '',
     title: '',
     page: 1,
-    articles: [],
+    posts: [],
     isLoadAll: false
   },
 
@@ -98,9 +98,9 @@ Page({
     });
     this.getSiteInfo();
     this.getAdvert();
-    // Articles of a category
+    // Posts of a category
     if (options.id) {
-      this.getArticlesList('id', {
+      this.getPostsList('id', {
         categories: options.id,
         page: this.data.page
       });
@@ -109,9 +109,9 @@ Page({
       });
       this.getCategoryByID(options.id);
     }
-    // Search article list
+    // Search post list
     if (options.s) {
-      this.getArticlesList('search', {
+      this.getPostsList('search', {
         search: options.s,
         page: this.data.page
       });
@@ -125,7 +125,7 @@ Page({
     // Type (sticky | random | related | most views | most favs | most likes | most comments | recent comments)
     if (options.type) {
       const title = (requestType[options.type] && requestType[options.type].title) || '';
-      this.getArticlesList(options.type);
+      this.getPostsList(options.type);
       this.setData({
         title
       });
@@ -171,17 +171,17 @@ Page({
       page: 1,
     });
     if (this.data.options.id) {
-      this.getArticlesList('id', {
+      this.getPostsList('id', {
         categories: this.data.options.id
       });
     }
     if (this.data.options.s) {
-      this.getArticlesList('search', {
+      this.getPostsList('search', {
         search: this.data.options.s
       });
     }
     if (this.data.options.type) {
-      this.getArticlesList(this.data.options.type);
+      this.getPostsList(this.data.options.type);
     }
   },
 
@@ -194,19 +194,19 @@ Page({
         isBottom: true
       });
       if (this.data.options.id) {
-        this.getArticlesList('id', {
+        this.getPostsList('id', {
           categories: this.data.options.id,
           page: this.data.page + 1
         });
       }
       if (this.data.options.s) {
-        this.getArticlesList('search', {
+        this.getPostsList('search', {
           search: this.data.options.s,
           page: this.data.page + 1
         });
       }
       if (this.data.options.type) {
-        this.getArticlesList(this.data.options.type, {
+        this.getPostsList(this.data.options.type, {
           page: this.data.page + 1
         });
       }
@@ -251,8 +251,8 @@ Page({
       });
   },
 
-  // Article list
-  getArticlesList: function (type, data) {
+  // Post list
+  getPostsList: function (type, data) {
     const requestApi = type && requestType[type] && requestType[type].api ? requestType[type].api : requestType.all.api;
     this.setData({
       loading: true
@@ -273,10 +273,10 @@ Page({
         })
       }
       if (this.data.isBottom) {
-        args.articles = [].concat(this.data.articles, res)
+        args.posts = [].concat(this.data.posts, res)
         args.page = this.data.page + 1;
       } else {
-        args.articles = res || [];
+        args.posts = res || [];
         args.page = 1;
       }
       this.setData({
@@ -311,7 +311,7 @@ Page({
   bindDetail: function (e) {
     let id = e.currentTarget.id;
     wx.navigateTo({
-      url: '/pages/article/index?id=' + id,
+      url: '/pages/post/index?id=' + id,
     })
   }
 
