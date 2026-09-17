@@ -9,6 +9,7 @@ Component({
     activeTab: {type: Number, value: 0}, // Currently active tab
     tabClass: {type: String, value: ''}, // Tab style
     swiperClass: {type: String, value: ''}, // Swiper style for the content area
+    swiperStyle: {type: String, value: ''}, // Swiper inline style (e.g. height for content-adaptive panels)
     activeClass: {type: String, value: ''}, // Style of the selected tab
     tabUnderlineColor: {type: String, value: '#07c160'}, // Underline color of the selected tab
     tabActiveTextColor: {type: String, value: '#000000'}, // Text color of the selected tab

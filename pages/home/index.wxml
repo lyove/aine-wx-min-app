@@ -109,6 +109,7 @@
         tabs="{{tabs}}" 
         activeTab="{{activeTab}}" 
         swiperClass="weui-tabs-swiper"
+        swiperStyle="height: {{tabsHeight}}"
         bindtabclick="onTabClick"
         bindchange="onTabChange"
         activeClass="tab-bar-title__selected"
@@ -156,14 +157,16 @@
     </view>
     <view wx:else class="latest_wrap">
       <view wx:if="{{posts.length > 0}}" class="latest_label">
-        <view class="latest_label_title">精选</view>
+        <view class="latest_label_head">
+          <view class="latest_label_title">精选</view>
+          <view class="latest_label_bg"></view>
+        </view>
         <view class="latest_label_more">
-          <view bindtap="bindCateByID" class="category" id="{{item.id}}" wx:for="{{category}}" wx:key="item">
+          <view bindtap="bindCateByID" class="category" id="{{item.id}}" wx:for="{{category}}" wx:key="id">
             {{item.name}}
           </view>
-          <image class="more" mode="heightFix" bindtap="bindCateList" src="../../images/more.png"></image>
         </view>
-        <view class="latest_label_bg"></view>
+        <image class="more" mode="heightFix" bindtap="bindCateList" src="../../images/more.png"></image>
       </view>
       <view wx:if="{{posts.length > 0}}" class="latest_post">
         <block wx:for="{{posts}}" wx:for-index="i" wx:key="id">

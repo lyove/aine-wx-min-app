@@ -24,6 +24,7 @@
   </view>
   <swiper
     class="{{swiperClass}}" 
+    style="{{swiperStyle}}"
     current="{{activeTab}}" 
     duration="{{duration}}" 
     bindchange="handleSwiperChange"

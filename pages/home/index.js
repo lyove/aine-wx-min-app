@@ -23,6 +23,7 @@ Page({
     tabs: [],
     tabsPaneData: [],
     activeTab: 0,
+    tabsHeight: '660rpx',
     indicatorDots: !1,
     autoplay: !0,
     interval: 3e3,
@@ -271,6 +272,10 @@ Page({
       this.setData({
         tabsPaneData: (res || []).slice(0, 5),
         tabsLoading: false
+      }, () => {
+        wx.nextTick(() => {
+          this.adjustTabsHeight();
+        });
       });
     })
       .catch(err => {
@@ -279,6 +284,28 @@ Page({
         });
         console.log(err);
       });
+  },
+
+  /**
+   * Make the panel height adapt to its content: measure the active tab panel
+   * height and apply it to the swiper, so content never overflows onto the
+   * section below (and short content leaves no huge blank).
+   */
+  adjustTabsHeight: function () {
+    const that = this;
+    wx.createSelectorQuery()
+      .selectAll('.itemize .tabs-box')
+      .boundingClientRect(function (rects) {
+        if (rects && rects.length) {
+          const rect = rects[that.data.activeTab] || rects[0];
+          if (rect && rect.height) {
+            that.setData({
+              tabsHeight: rect.height + 'px'
+            });
+          }
+        }
+      })
+      .exec();
   },
 
   onTabClick: function(e) {
