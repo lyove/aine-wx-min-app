@@ -5,7 +5,7 @@
 ## 当前状态
 
 - **接口域名**：`https://api.lyove.com`（`utils/base.js` 的 `API_HOST`）
-- **后端**：同目录 `laravel-aine-master`（Aine CMS，Laravel）线上部署，项目标识符 `note`
+- **后端**：`https://github.com/lyove/laravel-aine`（Aine CMS，Laravel）线上部署，项目标识符 `note`
 - **接口适配**：`utils/api.js` 已全部切换到 Aine CMS 接口（`/api/project/note/...`），原框架的 `article/articles`（含大小写、单复数）统一改为 `post/posts`，文件名、目录、路径同步调整；响应在 `api.js` 中标准化为页面结构，页面代码保持原框架不变
 - **已实现功能**：
   - 首页 / 栏目 / 列表 / 详情页：文章、分类、搜索、页面内容
