@@ -18,7 +18,7 @@
     </view>
   </view>
   <view class="user-items">
-    <view class="user-item relative">
+    <view class="user-item relative" data-type="userLike" bindtap="goUserList">
       <text class="user-item_text">我的点赞</text>
       <view class="user-item_icon">
         <image class="user-item_icon_img" src="../../images/my-inform.svg">
@@ -27,30 +27,30 @@
           {{unreadMessageCount}}
         </view>
       </view>
-      <button class="userLogin" bindtap="bindHandler"></button>
+      <button class="userLogin"></button>
     </view>
-    <view class="user-item relative">
+    <view class="user-item relative" data-type="userFav" bindtap="goUserList">
       <text class="user-item_text">我的收藏</text>
       <view class="user-item_icon">
         <image class="user-item_icon_img" src="../../images/my-like.svg">
         </image>
       </view>
-      <button class="userLogin" bindtap="bindHandler"></button>
+      <button class="userLogin"></button>
     </view>
-    <view class="user-item relative">
+    <view class="user-item relative" data-type="userComments" bindtap="goUserList">
       <text class="user-item_text">我的评论</text>
       <view class="user-item_icon">
         <image class="user-item_icon_img" src="../../images/my-dynamic.svg">
         </image>
       </view>
-      <button class="userLogin" bindtap="bindHandler"></button>
+      <button class="userLogin"></button>
     </view>
     <!-- <view class="user-item relative">
       <text class="user-item_text">订阅更新</text>
       <view class="user-item_icon">
         <image class="user-item_icon_img" src="../../images/subscribe.png"></image>
       </view>
-      <button class="userLogin" bindtap="bindHandler"></button>
+      <button class="userLogin"></button>
     </view> -->
     <!-- <view class="user-item">
       <text class="user-item_text">问题反馈</text>
@@ -58,7 +58,7 @@
         <image class="user-item_icon_img" src="../../images/feedback.svg">
         </image>
       </view>
-      <button class="userLogin" bindtap="bindHandler"></button>
+      <button class="userLogin"></button>
     </view> -->
     <!-- <view class="user-item">
       <text class="user-item_text">清除缓存</text>

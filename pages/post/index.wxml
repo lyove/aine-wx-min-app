@@ -134,7 +134,7 @@
         <view class="bottom-bar-btn">
           <image bindtap="bindBack" class="bottom-back" src="../../images/back.png"></image>
         </view>
-        <!-- <view class="bottom-bar-btn btn-space input-text {{enableComment ? '' : 'display-none'}}">
+        <view class="bottom-bar-btn btn-space input-text {{enableComment ? '' : 'display-none'}}">
           <text>{{placeholder}}</text>
           <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
           <button wx:else class="userLogin" bindtap="tapcomment"></button>
@@ -150,7 +150,7 @@
           </image>
           <button wx:if="{{!user}}" class="userLogin" bindgetuserinfo="getUserProfile" openType="getUserInfo"></button>
           <button wx:else class="userLogin" bindtap="bindLikeTap" id="{{detail.id}}"></button>
-        </view> -->
+        </view>
         <view class="bottom-bar-btn btn-space">
           <image bindtap="shareClick" class="bottom-share" src="../../images/share.png"></image>
         </view>

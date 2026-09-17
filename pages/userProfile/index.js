@@ -194,13 +194,20 @@ Page({
   },
 
   /**
-   * Unified toast for under-development features
+   * Go to a user-scoped list (favorites / likes / comments)
    */
-  bindHandler: function (e) {
-    wx.showToast({
-      title: '功能开发中...',
-      icon: 'none',
-      duration: 1500
+  goUserList: function (e) {
+    const type = e.currentTarget.dataset.type;
+    if (!type) {
+      return;
+    }
+    if (!API.getUser()) {
+      // Not logged in -> show the login dialog
+      this.showLogin();
+      return;
+    }
+    wx.navigateTo({
+      url: '/pages/postList/index?type=' + type
     });
   },
 })

@@ -265,7 +265,8 @@ Page({
     API[requestApi](type, data).then(res => {
       wx.hideLoading();
       let args = {};
-      if (res.length < 10) {
+      // User-scoped lists (favorites / likes / comments) are returned in full, no pagination
+      if (res.length < 10 || type === 'userFav' || type === 'userLike' || type === 'userComments') {
         this.setData({
           isLastPage: true,
           loadtext: '到底啦',

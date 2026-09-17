@@ -71,6 +71,47 @@ function normalizePage(item) {
 }
 
 /**
+ * Favorite / like row -> postList display structure.
+ * Backend /api/me/favorites & /api/me/likes return
+ * { content_id, title, slug, collection, project_identifier, project_name, published, favorited_at | liked_at }
+ */
+function normalizeUserInteraction(item, label) {
+	if (!item || typeof item !== 'object') {
+		return item;
+	}
+	const when = item.favorited_at || item.liked_at || '';
+	return {
+		id: item.content_id,
+		title: { rendered: item.title || '' },
+		excerpt: { rendered: (item.project_name ? item.project_name + ' · ' : '') + String(when).slice(0, 10) },
+		meta: { thumbnail: '' },
+		category: [{ id: 0, name: label }],
+		author: { name: '', avatar: '' },
+		comments: 0
+	};
+}
+
+/**
+ * Comment row -> postList display structure.
+ * Backend /api/me/comments returns
+ * { id, comment, status, article_id, article_title, article_slug, project_identifier, project_name, created_at }
+ */
+function normalizeUserComment(item) {
+	if (!item || typeof item !== 'object') {
+		return item;
+	}
+	return {
+		id: item.article_id || item.id,
+		title: { rendered: item.article_title || '评论' },
+		excerpt: { rendered: item.comment || '' },
+		meta: { thumbnail: '' },
+		category: [{ id: 0, name: '我的评论' }],
+		author: { name: item.project_name || '', avatar: '' },
+		comments: 0
+	};
+}
+
+/**
  * Pagination conversion: page -> offset/limit
  */
 function buildPagination(data) {
@@ -106,9 +147,15 @@ const getPostsList = function (type, data) {
 	}
 	data = data || {};
 
-	// Private lists for logged-in users (backend has no user system yet, return empty)
-	if (type === 'userFav' || type === 'userLike' || type === 'userComments') {
-		return Promise.resolve([]);
+	// Private lists for the current logged-in user (favorites / likes / comments)
+	if (type === 'userFav') {
+		return getUserFavPosts();
+	}
+	if (type === 'userLike') {
+		return getUserLikePosts();
+	}
+	if (type === 'userComments') {
+		return getUserCommentsPosts();
 	}
 
 	// Search
@@ -288,24 +335,30 @@ const markComment = function () {
 }
 
 /**
- * User favorites list (no user system yet; returns empty)
+ * Current user's favorites (Sanctum token required)
+ * GET /api/me/favorites
  */
 const getUserFavPosts = function () {
-	return Promise.resolve([]);
+	return API.get('/api/me/favorites', {}, { token: true })
+		.then(list => (list || []).map(item => normalizeUserInteraction(item, '我的收藏')));
 }
 
 /**
- * User likes list (no user system yet; returns empty)
+ * Current user's likes (Sanctum token required)
+ * GET /api/me/likes
  */
 const getUserLikePosts = function () {
-	return Promise.resolve([]);
+	return API.get('/api/me/likes', {}, { token: true })
+		.then(list => (list || []).map(item => normalizeUserInteraction(item, '我的点赞')));
 }
 
 /**
- * User comments list (no user system yet; returns empty)
+ * Current user's comments (Sanctum token required)
+ * GET /api/me/comments
  */
 const getUserCommentsPosts = function () {
-	return Promise.resolve([]);
+	return API.get('/api/me/comments', {}, { token: true })
+		.then(list => (list || []).map(normalizeUserComment));
 }
 
 /**
@@ -396,9 +449,9 @@ API.getRecentCommentPosts = getRecentCommentPosts;
 API.getComments = getComments;
 API.setFavComments = API.guard(setFavComments);
 API.setLikeComments = API.guard(setLikeComments);
-API.getUserFavPosts = API.guard(getUserFavPosts);
-API.getUserLikePosts = API.guard(getUserLikePosts);
-API.getUserCommentsPosts = API.guard(getUserCommentsPosts);
+API.getUserFavPosts = getUserFavPosts;
+API.getUserLikePosts = getUserLikePosts;
+API.getUserCommentsPosts = getUserCommentsPosts;
 API.addComment = API.guard(addComment);
 API.subscribeMessage = API.guard(subscribeMessage);
 API.getCodeImg = getCodeImg;

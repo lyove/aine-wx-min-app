@@ -26,10 +26,17 @@ API.request = function (url, method = "GET", data = {}, args = { token: true }) 
 
 	return new Promise(function (resolve, reject) {
 		url = API_HOST + url;
+		// Attach the Sanctum bearer token for authenticated endpoints
+		const token = (args && args.token === true) ? Auth.token() : false;
+		const header = {};
+		if (token) {
+			header.Authorization = 'Bearer ' + token;
+		}
 		wx.request({
 			url: url,
 			data: data,
 			method: method,
+			header: header,
 			success: function (res) {
 				const body = res.data || {};
 				if (res.statusCode === 200 && body.success !== false) {
@@ -43,8 +50,11 @@ API.request = function (url, method = "GET", data = {}, args = { token: true }) 
 					});
 				} else if (body.message) {
 					// Show the backend-provided error message (e.g. login failures)
+					const msg = (body.message === 'Unauthenticated.' || body.message === 'Unauthenticated')
+						? '登录已过期，请重新登录'
+						: body.message;
 					wx.showToast({
-						title: body.message,
+						title: msg,
 						icon: 'none',
 						duration: 2000
 					});
