@@ -14,7 +14,7 @@
     <image wx:else class="user-information_img" src="../../images/avatar.png"></image>
     <view class="nickname">
       <view class="user-information_nickname">{{user.nickName ? user.nickName : '游客'}}</view>
-      <view class="user-information_introduction">{{user ? '妙程序就是好看!' : '点击这里授权登录'}}</view>
+      <view class="user-information_introduction">{{user ? 'Welcome!' : '点击这里登录'}}</view>
     </view>
   </view>
   <view class="user-items">
@@ -45,21 +45,21 @@
       </view>
       <button class="userLogin" bindtap="bindHandler"></button>
     </view>
-    <view class="user-item relative">
+    <!-- <view class="user-item relative">
       <text class="user-item_text">订阅更新</text>
       <view class="user-item_icon">
         <image class="user-item_icon_img" src="../../images/subscribe.png"></image>
       </view>
       <button class="userLogin" bindtap="bindHandler"></button>
-    </view>
-    <view class="user-item">
+    </view> -->
+    <!-- <view class="user-item">
       <text class="user-item_text">问题反馈</text>
       <view class="user-item_icon">
         <image class="user-item_icon_img" src="../../images/feedback.svg">
         </image>
       </view>
       <button class="userLogin" bindtap="bindHandler"></button>
-    </view>
+    </view> -->
     <!-- <view class="user-item">
       <text class="user-item_text">清除缓存</text>
       <view class="user-item_icon">

@@ -7,7 +7,6 @@ App({
 
   onLaunch: function () {
     API.login();
-    // Get the system status bar info (sync APIs since base lib 2.20.1)
     const windowInfo = wx.getWindowInfo();
     const deviceInfo = wx.getDeviceInfo();
     this.globalData.StatusBar = windowInfo.statusBarHeight;

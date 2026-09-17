@@ -32,6 +32,12 @@
         "pagePath": "pages/category/index",
         "iconPath": "images/category.png",
         "selectedIconPath": "images/category_on.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/userProfile/index",
+        "iconPath": "images/user.png",
+        "selectedIconPath": "images/user_on.png"
       }
     ]
   },

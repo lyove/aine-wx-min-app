@@ -287,7 +287,7 @@ Page({
     if (!this.data.user) {
       wx.showModal({
         title: '提示',
-        content: '必须授权登录才可以评论',
+        content: '必须登录才可以评论',
         success: function (res) {
           if (res.confirm) {
             _this.getUserProfile();
@@ -335,7 +335,7 @@ Page({
         } else {
           wx.showModal({
             title: '提示',
-            content: '必须授权登录才可以评论',
+            content: '必须登录才可以评论',
             success: function (res) {
               if (res.confirm) {
                 _this.getUserProfile();
