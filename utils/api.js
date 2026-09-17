@@ -371,7 +371,7 @@ const Loginout = function () {
  * POST /api/login -> { access_token, expired_in, user }
  */
 const loginByPassword = function (account, password) {
-	return API.post('/login', { account, password }, { token: false });
+	return API.post('/api/login', { account, password }, { token: false });
 }
 
 // ==================== Exports ====================
